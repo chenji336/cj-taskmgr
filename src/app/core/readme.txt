@@ -1,0 +1,1 @@
+只加载一次，整体布局就是左边sidebar，右边就是header+main+footer，除了main之外其他只需要加载一次，所以应该放在core中
