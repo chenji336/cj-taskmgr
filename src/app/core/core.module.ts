@@ -1,5 +1,4 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 // 这里是因为引入的svg图表需要使用http服务
 import { HttpClientModule } from '@angular/common/http';
@@ -9,20 +8,20 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { loadSvgResources } from '../utils/svg.util';
 
-import { MatToolbarModule, MatIconModule, MatButtonModule, MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
+
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
+    SharedModule,
   ],
   declarations: [
     HeaderComponent,
