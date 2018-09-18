@@ -1,18 +1,32 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>登录：</mat-card-title>
-  </mat-card-header>
+<form>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>登录</mat-card-title>
+    </mat-card-header>
 
-  <mat-card-content>
-    <mat-form-field>
-      <input matInput
-             type="text"
-             placeholder='你的email'>
-    </mat-form-field>
-  </mat-card-content>
+    <mat-card-content>
+      <mat-form-field class="full-width">
+        <input matInput type="text" placeholder="您的email" >
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="password" placeholder="您的密码" >
+      </mat-form-field>
+    </mat-card-content>
+    <button mat-raised-button color="primary" type="button">登录</button>
+    <mat-card-actions class="text-right">
+      <p>还没有账户?<a href=''>注册</a></p>
+      <p>忘记密码?<a href="">找回</a></p>
+    </mat-card-actions>
+  </mat-card>
 
-  <mat-card-actions>
-    <p>还没有账户? <a href="">注册</a></p>
-    <p>忘记密码? <a href="">找回</a></p>
-  </mat-card-actions>
-</mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>每日佳句</mat-card-title>
+      <mat-card-subtitle>人生就是一场旅行，在乎的不只是目的地</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-xl-image src="/assets/quote_fallback.jpg">
+    <mat-card-content>
+      i am chenji
+    </mat-card-content>
+  </mat-card>
+</form>
