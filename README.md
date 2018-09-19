@@ -651,6 +651,7 @@ export class ProjectItemComponent implements OnInit {
 要和 input 联合使用。
 
 ```typescript
+// mat-form-field已经代替来mat-input-container，可以进入@angular/material搜索mat-input-container，里面有注释
 <mat-form-field>
   <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
 </mat-form-field>

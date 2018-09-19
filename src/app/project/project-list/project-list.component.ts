@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewProjectComponent } from '../new-project/new-project.component';
+import { InviteComponent } from '../invite/invite.component';
 
 @Component({
   selector: 'app-project-list',
@@ -47,6 +48,15 @@ export class ProjectListComponent implements OnInit {
     // 这里使用的就是Class而不是实例
     const dialogRef = this.dialog.open(NewProjectComponent, data);
     dialogRef.afterClosed().subscribe(result => console.log('result:', result))
+  }
+
+  launchInviteDialog() {
+     // 配置显示出来的弹框
+     const config = {
+      width: '300px',
+      height: '300px'
+    };
+    this.dialog.open(InviteComponent);
   }
 
 }
