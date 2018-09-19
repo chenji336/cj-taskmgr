@@ -494,7 +494,7 @@ ir.addSvgIconSetInNamespace('avatars', ds.bypassSecurityTrustResourceUrl(`${avat
 
 ## 2-10 对话框的使用
 
-* 对话框很特殊，需要在模块中的 entrryComponents中声明
+* 对话框很特殊，需要在模块中的 entryComponents中声明,因为是直接使用在ts中的
 * 传递数据： const dialogRef = dialog.open(YourDialog, {data:'your data'})
 * 接收数据： constructor(@Inject(MD_DIALOG_DATA) public data:any) {}
 

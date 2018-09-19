@@ -10,6 +10,7 @@ import {
   MatSidenavModule,
   MatSlideToggleModule,
   MatToolbarModule,
+  MatDialogModule,
 } from '@angular/material';
 
 @NgModule({
@@ -24,6 +25,7 @@ import {
     MatListModule,
     MatSlideToggleModule,
     MatGridListModule,
+    MatDialogModule,
   ],
   exports: [
     CommonModule,
@@ -36,6 +38,7 @@ import {
     MatListModule,
     MatSlideToggleModule,
     MatGridListModule,
+    MatDialogModule,
   ],
   declarations: []
 })

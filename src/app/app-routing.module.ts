@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     // 这里没用懒加载，而是直接加载过去
-    { path: '', redirectTo: '/login', pathMatch: 'full' }
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'project', redirectTo: '/project', pathMatch: 'full' },
 ];
 
 @NgModule({
