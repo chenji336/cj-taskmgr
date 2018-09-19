@@ -9,6 +9,7 @@ import {
   MatCardModule,
   MatInputModule,
   MatListModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 
 @NgModule({
@@ -21,6 +22,7 @@ import {
     MatCardModule,
     MatInputModule,
     MatListModule,
+    MatSlideToggleModule,
   ],
   exports: [
     CommonModule,
@@ -31,6 +33,7 @@ import {
     MatCardModule,
     MatInputModule,
     MatListModule,
+    MatSlideToggleModule,
   ],
   declarations: []
 })

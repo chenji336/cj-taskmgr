@@ -2,6 +2,7 @@ import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 // 这里是因为引入的svg图表需要使用http服务
 import { HttpClientModule } from '@angular/common/http';
+import 'hammerjs'; // 有些materila需要使用到hammerjs
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';

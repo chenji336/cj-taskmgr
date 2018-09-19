@@ -6,3 +6,8 @@
     main {
         flex: 1;
     }
+    
+mat-sidenav-container.myapp-dark-theme {
+    // 要不然背景色不会改变
+    background-color: black;
+}
