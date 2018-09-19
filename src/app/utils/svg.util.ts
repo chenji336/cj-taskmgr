@@ -9,6 +9,7 @@ export const loadSvgResources = (ir: MatIconRegistry, ds: DomSanitizer) => {
     const avatarDir = `${imgDir}/avatar`;
     const iconDir = `${imgDir}/icons`;
     ir.addSvgIcon('gifts', ds.bypassSecurityTrustResourceUrl('assets/gifts.svg'));
+    // 所有头像都放在了一个svg里面，svg里面有id，可以通过avatars: svg-xx获取
     ir.addSvgIconSetInNamespace('avatars', ds.bypassSecurityTrustResourceUrl(`${avatarDir}/avatars.svg`));
     ir.addSvgIcon('unassigned', ds.bypassSecurityTrustResourceUrl(`${avatarDir}/unassigned.svg`));
     ir.addSvgIcon('day', ds.bypassSecurityTrustResourceUrl(`${sidebarDir}/day.svg`));
