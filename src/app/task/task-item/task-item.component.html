@@ -1,3 +1,26 @@
-<p>
-  task-item works!
-</p>
+<mat-list-item class="container"
+               [ngClass]="{
+                'priority-normal': item.priority === 3,
+                'priority-important': item.priority === 2,
+                'priority-emergency': item.priority === 1
+               }">
+  <!-- order:-1,否则默认会排到最后 -->
+  <mat-checkbox class="completion-status"
+                [checked]="item.completed"></mat-checkbox>
+  <!-- mat-line 正一行并且超出长度给出省略号 -->
+  <div mat-line
+       class="content"
+       [ngClass]="{'completed': item.completed}">
+       <span [matTooltip]="item.desc">{{item.desc}}</span>
+  </div>
+
+  <div mat-line
+       class="bottom-bar"
+       *ngIf="item.dueDate">
+    <span class="due-date">{{item.dueDate | date:'yy-MM-dd'}}</span>
+    <mat-icon class='alarm' *ngIf="item.reminder">alarm</mat-icon>
+  </div>
+  <mat-icon [svgIcon]="avatar"
+            mat-list-avatar
+            class="avatar"></mat-icon>
+</mat-list-item>
