@@ -16,6 +16,7 @@ import {
 })
 export class NewProjectComponent implements OnInit {
 
+  title = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) private data,
     private dialogRef: MatDialogRef<NewProjectComponent>
@@ -23,6 +24,7 @@ export class NewProjectComponent implements OnInit {
 
   ngOnInit() {
     // 接受调用者传递过来的数据，传递的数据有格式要求
+    this.title = this.data.title;
     console.log('received data:', JSON.stringify(this.data));
   }
 

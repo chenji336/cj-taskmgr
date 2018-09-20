@@ -1,4 +1,5 @@
 <mat-list-item class="container"
+               (click)='onItemClick()'
                [ngClass]="{
                 'priority-normal': item.priority === 3,
                 'priority-important': item.priority === 2,
@@ -6,7 +7,8 @@
                }">
   <!-- order:-1,否则默认会排到最后 -->
   <mat-checkbox class="completion-status"
-                [checked]="item.completed"></mat-checkbox>
+                [checked]="item.completed"
+                (click)='onCheckBoxClick($event)'></mat-checkbox>
   <!-- mat-line 正一行并且超出长度给出省略号 -->
   <div mat-line
        class="content"
