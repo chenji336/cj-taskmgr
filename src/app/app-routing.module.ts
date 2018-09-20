@@ -5,6 +5,7 @@ const routes: Routes = [
     // 这里没用懒加载，而是直接加载过去
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'project', redirectTo: '/project', pathMatch: 'full' },
+    { path: 'tasklists', redirectTo: '/tasklists', pathMatch: 'full' },
 ];
 
 @NgModule({
