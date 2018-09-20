@@ -1,15 +1,30 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { itemAnim } from '../../anims/item.anim';
 
 @Component({
   selector: 'app-task-item',
   templateUrl: './task-item.component.html',
-  styleUrls: ['./task-item.component.scss']
+  styleUrls: ['./task-item.component.scss'],
+  animations: [
+    itemAnim
+  ]
 })
 export class TaskItemComponent implements OnInit {
-
+  
   @Input() item: any;
   @Input() avatar: string;
   @Output() taskClick = new EventEmitter<void>();
+  widerPriority = 'in';
+
+  @HostListener('mouseenter')
+  onmouseenter() {
+    this.widerPriority = 'out';
+  }
+  @HostListener('mouseleave')
+  onmouseleave() {
+    this.widerPriority = 'in';
+  }
+
   constructor() { }
 
   ngOnInit() {

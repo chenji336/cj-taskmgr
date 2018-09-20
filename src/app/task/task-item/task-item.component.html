@@ -4,7 +4,8 @@
                 'priority-normal': item.priority === 3,
                 'priority-important': item.priority === 2,
                 'priority-emergency': item.priority === 1
-               }">
+                }"
+                [@item]='widerPriority'>
   <!-- order:-1,否则默认会排到最后 -->
   <mat-checkbox class="completion-status"
                 [checked]="item.completed"
