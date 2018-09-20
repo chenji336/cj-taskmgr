@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 // 这里是因为引入的svg图表需要使用http服务
 import { HttpClientModule } from '@angular/common/http';
 import 'hammerjs'; // 有些materila需要使用到hammerjs
+import { RouterModule } from '@angular/router'; // routerLink使用需要routerModule（如果引入appRouting也可以，因为里面有routerMoule)
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -16,7 +17,8 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   imports: [
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,

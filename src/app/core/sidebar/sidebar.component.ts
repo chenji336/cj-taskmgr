@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { getDate } from 'date-fns';
 
@@ -9,6 +9,7 @@ import { getDate } from 'date-fns';
 })
 export class SidebarComponent implements OnInit {
 
+  @Output() navClick = new EventEmitter<void>();
   today = 'day';
 
   constructor() { }
@@ -16,6 +17,10 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     // getDay获取的是星期几而不是这个月的天数
     this.today = `day${getDate(new Date)}`;
+  }
+
+  onNavClick() {
+    this.navClick.emit();
   }
 
 }
