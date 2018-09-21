@@ -30,6 +30,11 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     FooterComponent,
     SidebarComponent
+  ],
+  providers: [
+    {
+      provide: 'BASE_CONFIG', useValue: 'http://localhost:3000'
+    }
   ]
 })
 // 只需要在跟模块下面引入一次，如果其他模块也引入了应该报错

@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +11,10 @@ export class AppComponent {
   darkTheme = false;
   squareState = 'red';
   constructor(
-    private oc: OverlayContainer
+    private oc: OverlayContainer,
+    @Inject('BASE_CONFIG') private config
   ) {
-
+    console.log('base_config:', config);
   }
 
   switchTheme(dark) {
