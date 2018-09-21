@@ -2,6 +2,7 @@ import {
   Component,
   Inject,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -12,7 +13,8 @@ import {
 @Component({
   selector: 'app-new-project',
   templateUrl: './new-project.component.html',
-  styleUrls: ['./new-project.component.scss']
+  styleUrls: ['./new-project.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewProjectComponent implements OnInit {
 
