@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -46,6 +47,8 @@ import { DirectiveModule } from '../directive/directive.module';
     MatNativeDateModule,
     MatSelectModule,
     DirectiveModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
@@ -68,6 +71,8 @@ import { DirectiveModule } from '../directive/directive.module';
     MatNativeDateModule,
     MatSelectModule,
     DirectiveModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [ConfirmDialogComponent],
   entryComponents: [ConfirmDialogComponent]

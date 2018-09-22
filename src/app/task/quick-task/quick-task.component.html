@@ -1,0 +1,16 @@
+<mat-form-field>
+  <!-- 如果最外层是form，那么form-control的name是必须的，否则找不到item -->
+  <input type="text"
+         matInput
+         placeholder="在这里快速创建一个任务"
+         [(ngModel)]='desc'
+         name='desc'
+         required>
+  <button matSuffix
+          mat-icon-button
+          type='button'
+          (click)='sendQuickTask()'>
+    <mat-icon>send</mat-icon>
+  </button>
+  <mat-error>不能为空</mat-error>
+</mat-form-field>

@@ -10,6 +10,7 @@
                  [dropEnterClass]='"drag-enter"'
                  (dropped)='handleMove($event,list)'
                  [ngStyle]='{"order": list.order}'>
+    <app-quick-task (quickTask)='handleQuickTask($event)'></app-quick-task>
     <app-task-header [header]="list.name"
                      (newTask)='launchNewTaskDialog()'
                      (moveAll)='launchCopyTaskDialog()'
