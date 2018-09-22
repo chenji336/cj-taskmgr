@@ -14,7 +14,8 @@
   <mat-checkbox class="completion-status"
                 [checked]="item.completed"
                 (click)='onCheckBoxClick($event)'></mat-checkbox>
-  <!-- mat-line 正一行并且超出长度给出省略号 -->
+  <!-- mat-line 正一行并且超出长度给出省略号 
+  ngClass [class.completed]='item.completed'等价-->
   <div mat-line
        class="content"
        [ngClass]="{'completed': item.completed}">

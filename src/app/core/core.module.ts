@@ -13,12 +13,14 @@ import { loadSvgResources } from '../utils/svg.util';
 import { MatIconRegistry } from '@angular/material';
 
 import { SharedModule } from '../shared/shared.module';
+import { ServicesModule } from '../services/services.module';
 
 @NgModule({
   imports: [
     HttpClientModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ServicesModule.forRoot()
   ],
   exports: [
     HeaderComponent,

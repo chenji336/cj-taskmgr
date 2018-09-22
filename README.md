@@ -1936,6 +1936,8 @@ __模块__
 如果是共用的要export出来，默认只能自己用。
 
 * 模块的元数据
+entryComponents：一进来就加载（之前的理解有误），比如dialogComponent
+declare: 在调用的时候才会加载
 
 * 经常看到的forRoot()
 
@@ -1943,7 +1945,8 @@ __模块__
 
 `ng g m services`
 
-动态定义元数据，返回Module。
+为什么会使用forRoot?
+动态定义元数据，返回Module。(NgModule里面的东西动态定义)
 ```typescript
 services.module.ts
 @NgModule()

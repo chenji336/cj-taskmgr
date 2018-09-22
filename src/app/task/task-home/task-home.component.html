@@ -8,7 +8,8 @@
                  appDroppable
                  [dropTags]='["task-item","task-list"]'
                  [dropEnterClass]='"drag-enter"'
-                 (dropped)='handleMove($event,list)'>
+                 (dropped)='handleMove($event,list)'
+                 [ngStyle]='{"order": list.order}'>
     <app-task-header [header]="list.name"
                      (newTask)='launchNewTaskDialog()'
                      (moveAll)='launchCopyTaskDialog()'

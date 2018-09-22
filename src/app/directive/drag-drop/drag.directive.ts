@@ -18,7 +18,7 @@ export class DragDirective {
     this.render.setAttribute(this.el.nativeElement, 'draggable', `${draggable}`);
   }
   @Input() dragTag: string;
-  @Input() dragData: string;
+  @Input() dragData: any;
   @Input() draggedClass: string;
 
   constructor(
