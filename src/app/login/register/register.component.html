@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]='form' (ngSubmit)='onSubmit(form,$event)'>
     <mat-card>
       <mat-card-header>
         <mat-card-title>注册</mat-card-title>
@@ -6,25 +6,28 @@
   
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput type="text" placeholder="您的email">
+          <input matInput type="text" placeholder="您的email" formControlName='email'> 
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput type="text" placeholder="姓名">
+          <input matInput type="text" placeholder="姓名" formControlName='name'>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput type="password" placeholder="您的密码">
+          <input matInput type="password" placeholder="您的密码" formControlName='password'>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput type="password" placeholder="重复输入您的密码">
+          <input matInput type="password" placeholder="重复输入您的密码" formControlName='repeat'>
         </mat-form-field>
-        <mat-grid-list [cols]="6" rowHeight="2:1">
-          <mat-grid-tile *ngFor="let item of items">
-            <mat-icon class="avatar" [svgIcon]="item"></mat-icon>
-          </mat-grid-tile>
-        </mat-grid-list>
+        <app-image-list-select
+          [useSvgIcon]="true"
+          [cols]="6"
+          [title]="'选择头像'"
+          [items]="items"
+          formControlName="avatar">
+        </app-image-list-select>
+        <!-- <mat-error>{{form.controls['avatar'].errors | json}}</mat-error> -->
   
       </mat-card-content>
-      <button mat-raised-button color="primary" type="button">注册</button>
+      <button mat-raised-button color="primary" type="submit">注册</button>
       <mat-card-actions class="text-right">
         <p>还没有账户?<a href="">登录</a></p>
         <p>忘记密码?<a href="">找回</a></p>

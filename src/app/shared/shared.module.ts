@@ -24,6 +24,7 @@ import {
 
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DirectiveModule } from '../directive/directive.module';
+import { ImageListSelectComponent } from './image-list-select/image-list-select.component';
 
 @NgModule({
   imports: [
@@ -73,8 +74,9 @@ import { DirectiveModule } from '../directive/directive.module';
     DirectiveModule,
     FormsModule,
     ReactiveFormsModule,
+    ImageListSelectComponent,
   ],
-  declarations: [ConfirmDialogComponent],
+  declarations: [ConfirmDialogComponent, ImageListSelectComponent],
   entryComponents: [ConfirmDialogComponent]
 })
 export class SharedModule { }
