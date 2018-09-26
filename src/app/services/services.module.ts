@@ -1,5 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
+import { QuoteService } from './quote.service';
+
 @NgModule(
   // 使用forRoot代替（当然名字是随意更改的）
   // {
@@ -13,7 +15,9 @@ export class ServicesModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: ServicesModule,
-      providers: []
+      providers: [
+        QuoteService
+      ]
     };
   }
 }

@@ -1,0 +1,34 @@
+{
+    "quotes": [
+      {
+        "id": 1,
+        "cn": "慧妍",
+        "en": "Aliquam erat volutpat.",
+        "pic": "/assets/img/quotes/1.jpg"
+      },
+      {
+        "id": 2,
+        "cn": "伟宸",
+        "en": "Etiam pretium iaculis justo.",
+        "pic": "/assets/img/quotes/2.jpg"
+      },
+      {
+        "id": 3,
+        "cn": "展博",
+        "en": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.",
+        "pic": "/assets/img/quotes/3.jpg"
+      },
+      {
+        "id": 4,
+        "cn": "墨含",
+        "en": "Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+        "pic": "/assets/img/quotes/4.jpg"
+      },
+      {
+        "id": 5,
+        "cn": "俊泽",
+        "en": "Quisque id justo sit amet sapien dignissim vestibulum.",
+        "pic": "/assets/img/quotes/5.jpg"
+      }
+    ]
+  }

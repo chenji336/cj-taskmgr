@@ -2433,6 +2433,7 @@ __mapTo__ 适合只关心事件，不关心值的情况下使用
     const width$ = Rx.Observable.fromEvent(width, 'keyup').pluck('target', 'value');;
 
 __from__ 操作符
+主要操作数组from([1,2,3,4])---of(1,2,3,4)里面不是数组
 
 -1-2-3-4-------4
 ----------4----4
@@ -2440,6 +2441,7 @@ __from__ 操作符
 ----------2----2
 
 __of__ 操作符
+主要操作对象{id:1, value:20}
 
     const length$ = Rx.Observable.of({id:1, value:20},{id:2, value:40});
     const area$ = Rx.Observable.combineLatest(length$, width$, (l, w) => {return l.value*w;});
@@ -2490,7 +2492,7 @@ __Observable的性质__
 
 * 特殊的： 永不结束，Never, Empty(结束但不发射), Throw
 
-常见工具类操作符: do
+常见工具类操作符: do->tap
 
 常见变换类操作符: scan
 
@@ -2505,7 +2507,7 @@ const interval$ = Rx.Observable.interval(100).take(3);
 interval$.subscribe(
   val => console.log(val),
   err => console.log(err),
-  () => console.log('I am compolelte')
+  () => console.log('I am compolelte') // take之后会执行
 )
 ```
 
@@ -2517,7 +2519,7 @@ timer$.subscribe(v => console.log(v))
 
 `const timer$ = Rx.Observable.timer(100, 100);` 参数1延时时间，参数2循环时间
 
-do 相当于中间桥梁处理在 subscribe 之前。
+do 相当于中间桥梁处理在 subscribe 之前。(临时的的subscribe使用))
 
 ```typescript
 let logLabel = '当前值是'
@@ -2553,7 +2555,7 @@ const interval$ = Rx.Observable.interval(100)
     0----------2---------4----------6----
     0----------2---------6----------12---
 
-reduce 只发射最后值，所以这里take是没用的。
+reduce 只发射最后值(但是执行步骤还是一样的)，所以这里take是没用的。
 
     .filter(val => val % 2 === 0) .reduce((x, y) => {return x+y}) .take(4);
 
