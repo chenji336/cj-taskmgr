@@ -24,10 +24,9 @@
           [items]="items"
           formControlName="avatar">
         </app-image-list-select>
-        <!-- <mat-error>{{form.controls['avatar'].errors | json}}</mat-error> -->
-  
+        <app-age-input formControlNmae='dateOfBirth'></app-age-input>
+        <button mat-raised-button color="primary" type="submit">注册</button>
       </mat-card-content>
-      <button mat-raised-button color="primary" type="submit">注册</button>
       <mat-card-actions class="text-right">
         <p>还没有账户?<a href="">登录</a></p>
         <p>忘记密码?<a href="">找回</a></p>
