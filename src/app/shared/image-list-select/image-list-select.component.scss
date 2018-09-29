@@ -50,3 +50,8 @@ mat-icon.avatar {
 .image-container .after .zoom:hover {
   color: #fff;
 }
+
+.selected-avatar {
+  display: flex;
+  align-items: center;
+}
