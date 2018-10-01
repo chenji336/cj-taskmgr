@@ -1,4 +1,20 @@
 {
+  "projects": [
+    {
+      "id": 1,
+      "name": "itemMame-1",
+      "desc": "this is a ent project",
+      "coverImg": "assets/img/covers/0.jpg",
+      "members": ["1", "2"]
+    },
+    {
+      "id": 2,
+      "name": "Auto test",
+      "desc": "this is a ent project",
+      "coverImg": "assets/img/covers/1.jpg",
+      "members": ["1"]
+    }
+  ],
     "quotes": [
       {
         "id": 1,

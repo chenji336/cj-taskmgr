@@ -5,6 +5,8 @@ import { InviteComponent } from '../invite/invite.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { slideToRight } from '../../anims/router.anim';
 import { listAnimation } from '../../anims/list.anim';
+import { ProjectService } from '../../services/project.service';
+import { Project } from '../../domain';
 
 @Component({
   selector: 'app-project-list',
@@ -19,26 +21,18 @@ import { listAnimation } from '../../anims/list.anim';
 export class ProjectListComponent implements OnInit {
 
   @HostBinding('@routeAnim') state;
-  projects = [
-    {
-      'id': 1,
-      'name': 'itemMame-1',
-      'desc': 'this is a ent project',
-      'coverImg': 'assets/img/covers/0.jpg'
-    },
-    {
-      'id': 2,
-      'name': 'Auto test',
-      'desc': 'this is a ent project',
-      'coverImg': 'assets/img/covers/1.jpg'
-    }
-  ];
+  projects: Project[] = [];
   constructor(
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private service$: ProjectService
   ) { }
 
   ngOnInit() {
+    this.service$.get('1').subscribe(projects => {
+      this.projects = projects;
+      this.cd.markForCheck();
+    });
   }
 
   openNewProjectDialog() {
