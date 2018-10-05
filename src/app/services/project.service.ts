@@ -63,7 +63,7 @@ export class ProjectService {
   // delete
   del(project: Project): Observable<Project> {
     const uri = `${this.config.uri}/${this.domain}/${project.id}`;
-    const delTasks$ = from(project.taskLists).pipe(
+    const delTasks$ = from(project.taskLists ? project.taskLists : []).pipe(
       mergeMap(listId => this.http.delete(`${this.config.uri}/taskLists/${listId}`)),
       count()
     );

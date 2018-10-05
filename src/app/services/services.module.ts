@@ -3,6 +3,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { QuoteService } from './quote.service';
 import { ProjectService } from './project.service';
 import { TaskListService } from './task-list.service';
+import { TaskService } from './task.service';
 
 @NgModule(
   // 使用forRoot代替（当然名字是随意更改的）
@@ -21,6 +22,7 @@ export class ServicesModule {
         QuoteService,
         ProjectService,
         TaskListService,
+        TaskService,
       ]
     };
   }
