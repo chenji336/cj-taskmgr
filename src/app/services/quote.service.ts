@@ -15,7 +15,7 @@ export class QuoteService {
   ) { }
 
   getQuote(): Observable<Quote> {
-    const uri = `${this.config.uri}/quotes/${Math.ceil(Math.random() * 6)}`;
+    const uri = `${this.config.uri}/quotes/${Math.ceil(Math.random() * 5)}`;
     return this.http.get<Quote>(uri).pipe(
       // map(d => {
       //   console.log(d);
