@@ -29,6 +29,8 @@ import { DirectiveModule } from '../directive/directive.module';
 import { ImageListSelectComponent } from './image-list-select/image-list-select.component';
 import { AgeInputComponent } from './age-input/age-input.component';
 import { ChipsListComponent } from './chips-list/chips-list.component';
+import { AreaListComponent } from './area-list/area-list.component';
+import { IdentityInputComponent } from './identity-input/identity-input.component';
 
 @NgModule({
   imports: [
@@ -86,7 +88,7 @@ import { ChipsListComponent } from './chips-list/chips-list.component';
     MatButtonToggleModule,
     MatChipsModule,
   ],
-  declarations: [ConfirmDialogComponent, ImageListSelectComponent, AgeInputComponent, ChipsListComponent],
+  declarations: [ConfirmDialogComponent, ImageListSelectComponent, AgeInputComponent, ChipsListComponent, AreaListComponent, IdentityInputComponent],
   entryComponents: [ConfirmDialogComponent]
 })
 export class SharedModule { }
