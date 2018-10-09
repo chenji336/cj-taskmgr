@@ -86,7 +86,29 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       width: '300px',
       height: '300px'
     };
-    this.dialog.open(InviteComponent);
+    const dialogRef = this.dialog.open(InviteComponent, {data: {
+      members: [
+        {
+          "password": 123456,
+          "name": "李四",
+          "avatar": "avatars:svg-1",
+          "email": "lisixxx@independent.co.uk",
+          "id": 1,
+          "projectIds": [
+            "1"
+          ]
+        },
+        {
+          "password": 123456,
+          "name": "李明",
+          "avatar": "avatars:svg-2",
+          "email": "liming@reddit.com",
+          "id": 2,
+          "projectIds": [
+            "1"
+          ]
+        }]
+    }});
   }
 
   auncherUpdateDialog(project: Project) {

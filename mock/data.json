@@ -1,4 +1,46 @@
 {
+  "users": [
+    {
+      "password": 123456,
+      "name": "李四",
+      "avatar": "avatars:svg-1",
+      "email": "lisixxx@independent.co.uk",
+      "id": 1,
+      "projectIds": [
+        "1"
+      ]
+    },
+    {
+      "password": 123456,
+      "name": "李明",
+      "avatar": "avatars:svg-2",
+      "email": "liming@reddit.com",
+      "id": 2,
+      "projectIds": [
+        "1"
+      ]
+    },
+    {
+      "password": 123456,
+      "name": "张三",
+      "avatar": "avatars:svg-3",
+      "email": "zhangsan@newsvine.com",
+      "id": 3,
+      "projectIds": [
+        "1"
+      ]
+    },
+    {
+      "password": 123456,
+      "name": "张明",
+      "avatar": "avatars:svg-4",
+      "email": "zhangming@webeden.co.uk",
+      "id": 4,
+      "projectIds": [
+        "1"
+      ]
+    }
+  ],
   "projects": [
     {
       "id": 1,

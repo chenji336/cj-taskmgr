@@ -133,7 +133,7 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
       const age = this.toAge(d.date);
       if (d.from === 'birthday') {
         if (age.age !== ageNum.value) {
-          // patchValue是为ageNum赋值，emitEvent:不处罚valuechanges和statusChanges
+          // patchValue是为ageNum赋值，emitEvent:不触发valuechanges和statusChanges
           ageNum.patchValue(age.age, { emitEvent: false });
         }
         if (age.unit !== ageUnit.value) {

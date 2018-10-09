@@ -1,0 +1,26 @@
+<!-- 该控件有多选和只选择一次然后消失 -->
+<div [formGroup]="form">
+  <span>{{label}}</span>
+  <mat-chip-list>
+    <mat-chip selected="true" color="primary" *ngFor="let member of items">
+      {{member.name}} <span class="remove-tag" (click)="removeMember(member)">x</span>
+    </mat-chip>
+  </mat-chip-list>
+  <mat-form-field *ngIf="displayInput" class="full-width">
+    <input type="text"
+           matInput
+           [placeholder]="placehoderText"
+           [matAutocomplete]="autoMember"
+           formControlName="memberSearch">
+  </mat-form-field>
+</div>
+
+<!-- autoMembers可以不绑定matAutocomplete，直接写成#autoMembers 
+     displayWith是要显示的名字，如果没有则显示[Ojbect Object]-->
+<mat-autocomplete #autoMember="matAutocomplete" [displayWith]="displayUser">
+  <mat-option *ngFor="let item of memberResults$ | async"
+  [value]="item"
+  (onSelectionChange)="handleMemberSelection(item)">
+    {{item.name}}
+  </mat-option>
+</mat-autocomplete>

@@ -1,9 +1,7 @@
-<form >
+<form #f='ngForm' (ngSubmit)='onSubmit($event,f)'>
   <h3 mat-dialog-title>邀请组员:</h3>
   <mat-dialog-content>
-    <mat-form-field class="full-width">
-      <input matInput type="text" placeholder="组员姓名" [matAutocomplete]="autoMembers">
-    </mat-form-field>
+    <app-chips-list label="邀请成员" name="members" [(ngModel)]="members"></app-chips-list>
   </mat-dialog-content>
   <!-- mat-dialog-actions不要放在mat-dialog-content里面，要不然样式会有些问题 -->
   <mat-dialog-actions>
@@ -14,8 +12,8 @@
 
 <!-- autoMembers可以不绑定matAutocomplete，直接写成#autoMembers 
      displayWith是要显示的名字，如果没有则显示[Ojbect Object]-->
-<mat-autocomplete #autoMembers="matAutocomplete" [displayWith]="displayUser">
+<!-- <mat-autocomplete #autoMembers="matAutocomplete" [displayWith]="displayUser">
   <mat-option *ngFor="let item of items" [value]="item">
     {{item.name}}
   </mat-option>
-</mat-autocomplete>
+</mat-autocomplete> -->
