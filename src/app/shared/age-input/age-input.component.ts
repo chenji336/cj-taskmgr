@@ -84,7 +84,7 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
     const ageUnit = this.form.get('age').get('ageUnit');
 
     const birthday$ = birthday.valueChanges.pipe(
-      tap(_ => console.log('birthday$-changed')),
+      // tap(_ => console.log('birthday$-changed')),
       map(d => {
         return {
           date: d,
@@ -96,7 +96,7 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
     const ageNum$ = ageNum.valueChanges.pipe(
       startWith(ageNum.value),
       tap(d => {
-        console.log('ageNum$-valueChange');
+        // console.log('ageNum$-valueChange');
       }),
       debounceTime(this.debounceTime),
       distinctUntilChanged()
@@ -106,7 +106,7 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
       startWith(ageUnit.value),
       debounceTime(this.debounceTime),
       tap(d => {
-        console.log('ageUnit$-valueChange');
+        // console.log('ageUnit$-valueChange');
       }),
       distinctUntilChanged()
     );
@@ -152,7 +152,7 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
 
   writeValue(val: any) {
     if (val) {
-      console.log('writeValue:', val);
+      // console.log('writeValue:', val);
       const date = format(val, this.format);
       this.form.get('birthday').patchValue(date);
       const age = this.toAge(date);
@@ -221,8 +221,8 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
 
   validateDate(c: FormControl): { [key: string]: any } {
     const val = c.value;
-    console.log('validateDate:', val)
-    console.log('isValidDate(val) :', isValidDate(val))
+    // console.log('validateDate:', val)
+    // console.log('isValidDate(val) :', isValidDate(val))
     return isValidDate(val) ? null : {
       birthdayInvalid: true
     }
@@ -234,7 +234,7 @@ export class AgeInputComponent implements OnInit, ControlValueAccessor, OnDestro
       const ageUnit = group.controls[ageUnitKey];
       let result = false;
       const ageNumVal = ageNum.value;
-      console.log('validateAge:', ageNumVal, ageUnit.value)
+      // console.log('validateAge:', ageNumVal, ageUnit.value)
       switch (ageUnit.value) {
         case AgeUnit.Year:
           result = ageNumVal >= this.yearBottom && ageNumVal < this.yearTop;

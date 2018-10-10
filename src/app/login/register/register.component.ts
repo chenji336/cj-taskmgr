@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime, filter } from 'rxjs/operators';
+import { extractInfo, isValidAddr, getAddrByCode } from '../../utils/identity.util';
+import { isValidDate } from '../../utils/date.util';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +28,27 @@ export class RegisterComponent implements OnInit {
       password: [],
       repeat: [],
       avatar: [img],
-      dateOfBirth: ['1990-01-01']
+      dateOfBirth: ['1990-01-01'],
+      address: [], 
+      identity: []
+    });
+
+    // 验证通过之后，在获取地址和日期
+    const id$ = this.form.get('identity').valueChanges.pipe(
+      debounceTime(300),
+      filter(_ => {
+        return this.form.get('identity').valid;
+      })
+    );
+    id$.subscribe(id => {
+      const info = extractInfo(id.identityNo);
+      if (isValidAddr(info.addrCode)) {
+        const addr = getAddrByCode(info.addrCode);
+        this.form.get('address').patchValue(addr);
+      } 
+      if (isValidDate(info.dateOfBirth)) {
+        this.form.get('dateOfBirth').patchValue(info.dateOfBirth);
+      }
     });
   }
 

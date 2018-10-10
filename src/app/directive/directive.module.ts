@@ -3,15 +3,18 @@ import { NgModule } from '@angular/core';
 import { DragDropService } from './drag-drop.service';
 import { DragDirective } from './drag-drop/drag.directive';
 import { DropDirective } from './drag-drop/drop.directive';
+import { IdentityDirective } from './identity.directive';
 
 @NgModule({
   declarations: [
     DragDirective,
-    DropDirective
+    DropDirective,
+    IdentityDirective,
   ],
   exports: [
     DragDirective,
-    DropDirective
+    DropDirective,
+    IdentityDirective,
   ],
   providers: [
     DragDropService

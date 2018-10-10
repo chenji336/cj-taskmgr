@@ -22,6 +22,7 @@ import {
   MatSelectModule,
   MatButtonToggleModule,
   MatChipsModule,
+  MatTabsModule,
 } from '@angular/material';
 
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
@@ -58,6 +59,7 @@ import { IdentityInputComponent } from './identity-input/identity-input.componen
     ReactiveFormsModule,
     MatButtonToggleModule,
     MatChipsModule,
+    MatTabsModule,
   ],
   exports: [
     CommonModule,
@@ -83,12 +85,22 @@ import { IdentityInputComponent } from './identity-input/identity-input.componen
     FormsModule,
     ReactiveFormsModule,
     ImageListSelectComponent,
-    AgeInputComponent,
+    AgeInputComponent, 
     ChipsListComponent,
+    AreaListComponent, 
+    IdentityInputComponent,
     MatButtonToggleModule,
     MatChipsModule,
+    MatTabsModule,
   ],
-  declarations: [ConfirmDialogComponent, ImageListSelectComponent, AgeInputComponent, ChipsListComponent, AreaListComponent, IdentityInputComponent],
+  declarations: [
+    ConfirmDialogComponent, 
+    ImageListSelectComponent, 
+    AgeInputComponent, 
+    ChipsListComponent,
+    AreaListComponent, 
+    IdentityInputComponent,
+  ],
   entryComponents: [ConfirmDialogComponent]
 })
 export class SharedModule { }

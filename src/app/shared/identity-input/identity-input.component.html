@@ -1,8 +1,9 @@
 <div>
+  <!-- mat-select的change最新版本是selectionChange -->
   <mat-select placeholder='证件类型'
-              (change)='onIdTypeChange($event.value)'
-              [(ngmodel)]='identity.identityType'>
-    <mat-option *ngFor='let type of identity'
+              (selectionChange)='onIdTypeChange($event.value)' 
+              [(ngModel)]='identity.identityType'>
+    <mat-option *ngFor='let type of identityTypes'
                 [value]='type.value'>
       {{type.label}}
     </mat-option>
@@ -10,10 +11,14 @@
 </div>
 <div class='id-input'>
   <mat-form-field class='full-width'>
+    <!-- 添加了directive appIdentifyRevealed 只是验证模板表单 需要使用指令进行验证，否则mat-error不起作用 -->
     <input type="text"
-           placeholder='证件号码'
+           matInput
+           appIdentifyIdCard
+           [placeholder]='identityLabelType'
            (change)='onIdNoChange($event.target.value)'
-           [(ngmodel)]='identity.identityNo'>
+           [(ngModel)]='identity.identityNo'>
+    <!-- 模板表单error需要你自己使用directive，否则需要动态表单才可以显示error -->
     <mat-error>证件号码输入有误</mat-error>
   </mat-form-field>
 </div>
