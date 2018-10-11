@@ -59,7 +59,10 @@ export class AreaListComponent implements OnInit, OnDestroy, ControlValueAccesso
     this.sub = val$.subscribe(d => this.propagateChange(d));
     this.provinces$ = of(getProvinces());
     this.cities$ = province$.pipe(
-      map((p: string) => getCitiesByProvince(p))
+      map((p: string) => {
+        console.log('selectedProvince:', p);
+        return getCitiesByProvince(p);
+      })
     );
     this.districts$ = combineLatest([province$, city$], (p: string, c: string) => getAreaByCity(p, c))
   }
