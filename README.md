@@ -4201,7 +4201,7 @@ npm i --save @ngrx/core@1.2.0 @ngrx/store@2.2.3 @ngrx/router-store@1.2.6 @ngrx/e
 
 相等的，返回的是新的对象，不是修改的原来的对象。
 
-      return { ...state, quote: action.payload};
+      return { ...state, quote: action.payload}; 等价与下面
       return Object.assign({}, state, {quote: action.payload})
 
 redux 相关的导入方法
