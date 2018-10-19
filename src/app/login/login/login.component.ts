@@ -9,8 +9,6 @@ import { QuoteService } from '../../services/quote.service';
 import * as fromRoot from '../../reducers';
 import * as actions from '../../actions/quote.action';
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,14 +33,12 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.quote$ = this.store$.select(fromRoot.getQuote);
+    this.quote$ = this.store$.select(fromRoot.getQuote); // 1.fromRoot.getQuote => state.quote；2. .slect理解成filter+distinctUntilChanged
     this.quote$.subscribe(q => {
-      console.log('q:', q);
+      console.log('quote$-q:', q);
       // q['ttt'] = 123; // 如果进行了storeFreeze，那么这里扩展属性就会报错
     })
-    this.quoteService.getQuote().subscribe(q => {
-      this.store$.dispatch(new actions.LoadSuccessAction(q));
-    });
+    this.store$.dispatch(new actions.LoadAction(null));
   }
 
   validate(c: FormControl): {[key: string]: any} | null {

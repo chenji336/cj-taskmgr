@@ -4494,7 +4494,7 @@ export function type<T>(label: T | ''): T {
 
 ```
 ## 7-3 什么是 Effects
-
+外接通过dispatch(QUOTE)->进入effect 触发services.subscribe()->触发success或则fail
 ```typescript
 npm install @ngrx/effects --save
 npm install -g concurrently
@@ -4515,7 +4515,7 @@ action 想像为一个流的话，改变的是数据流。不改变数据， 改
  
 # package.json
     "server": "json-server --watch mock/data.json --port 3000",
-    "start": "convurrently \"ng server --port=4200 \" \"npm run server\"",
+    "start": "concurrently \"ng server --port=4200 \" \"npm run server\"",
 
 # index.ts
 @NgModule({

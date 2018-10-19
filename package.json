@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port=9999",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "server": "json-server ./mock/data.json"
+    "server": "json-server --watch ./mock/data.json --port 3000",
+    "start": "concurrently \"ng serve --port=9999\" \"npm run server\" "
   },
   "private": true,
   "dependencies": {
@@ -46,6 +46,7 @@
     "@types/lodash": "^4.14.116",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
+    "concurrently": "^4.0.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
