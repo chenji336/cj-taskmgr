@@ -14,13 +14,15 @@ import { MatIconRegistry } from '@angular/material';
 
 import { SharedModule } from '../shared/shared.module';
 import { ServicesModule } from '../services/services.module';
+import { AppStoreModule } from '../reducers';
 
 @NgModule({
   imports: [
     HttpClientModule,
     SharedModule,
     RouterModule,
-    ServicesModule.forRoot()
+    ServicesModule.forRoot(),
+    AppStoreModule
   ],
   exports: [
     HeaderComponent,

@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 
 import { Quote } from '../../domain/quote.model';
 import { QuoteService } from '../../services/quote.service';
+import * as fromRoot from '../../reducers';
+import * as actions from '../../actions/quote.action';
+
+
 
 @Component({
   selector: 'app-login',
@@ -12,14 +19,11 @@ import { QuoteService } from '../../services/quote.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  quote: Quote =  {
-    cn: '慧妍',
-    en: 'Aliquam erat volutpat.',
-    pic: '/assets/img/quotes/1.jpg'
-  };
+  quote$: Observable<Quote>;
   constructor(
     private fb: FormBuilder,
-    private quoteService: QuoteService
+    private quoteService: QuoteService,
+    private store$: Store<fromRoot.State>
   ) { }
 
   ngOnInit() {
@@ -31,7 +35,14 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.quoteService.getQuote().subscribe(q => this.quote = q);
+    this.quote$ = this.store$.select(fromRoot.getQuote);
+    this.quote$.subscribe(q => {
+      console.log('q:', q);
+      // q['ttt'] = 123; // 如果进行了storeFreeze，那么这里扩展属性就会报错
+    })
+    this.quoteService.getQuote().subscribe(q => {
+      this.store$.dispatch(new actions.LoadSuccessAction(q));
+    });
   }
 
   validate(c: FormControl): {[key: string]: any} | null {
