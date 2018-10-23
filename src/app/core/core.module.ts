@@ -15,7 +15,6 @@ import { MatIconRegistry } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { ServicesModule } from '../services/services.module';
 import { AppStoreModule } from '../reducers';
-import { AppEffectsModule } from '../effects/index';
 
 @NgModule({
   imports: [
@@ -24,7 +23,6 @@ import { AppEffectsModule } from '../effects/index';
     RouterModule,
     ServicesModule.forRoot(),
     AppStoreModule,
-    AppEffectsModule,
   ],
   exports: [
     HeaderComponent,

@@ -39,6 +39,44 @@
       "projectIds": [
         "1"
       ]
+    },
+    {
+      "email": "1010072738@qq.com",
+      "name": "chenji",
+      "password": "chenji336",
+      "repeat": "chenji336",
+      "avatar": "avatars:svg-16",
+      "dateOfBirth": "1990-10-07",
+      "address": {
+        "province": "江西省",
+        "city": "九江市",
+        "district": "彭泽县",
+        "street": "休息休息"
+      },
+      "identity": {
+        "identityType": 0,
+        "identityNo": "360430199010070014"
+      },
+      "id": 5
+    },
+    {
+      "email": "minxi@qq.com",
+      "name": "minxi",
+      "password": "minxi",
+      "repeat": "minxi",
+      "avatar": "avatars:svg-13",
+      "dateOfBirth": "1993-10-22",
+      "address": {
+        "province": "江西省",
+        "city": "九江市",
+        "district": "彭泽县",
+        "street": "xxxxx"
+      },
+      "identity": {
+        "identityType": 0,
+        "identityNo": "360430199310070026"
+      },
+      "id": 6
     }
   ],
   "projects": [

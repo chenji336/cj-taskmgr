@@ -38,4 +38,4 @@ export class LoadFailAction implements Action {
 }
 
 // 定义Actions是一个类型（类似于Number）
-export type Action = LoadAction | LoadSuccessAction | LoadFailAction;
+export type Actions = LoadAction | LoadSuccessAction | LoadFailAction;

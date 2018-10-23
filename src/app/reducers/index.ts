@@ -3,22 +3,28 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { createSelector } from 'reselect';
-
-import * as fromQuote from './quote.reducer';
 import { NgModule } from '@angular/core';
+
 import { environment } from '../../environments/environment';
+import * as fromQuote from './quote.reducer';
+import * as fromAuth from './auth.reducer';
+import { Auth } from '../domain/auth.model';
+import { AppEffectsModule } from '../effects';
+
 
 export interface State {
-    quote: fromQuote.State
+    quote: fromQuote.State,
+    auth: Auth,
 }
 
-// const initialState: State = {
-//     quote: fromQuote.initialState
-// };
+const initialState: State = {
+    quote: fromQuote.initialState,
+    auth: fromAuth.initialState
+};
 
 const reducers = {
     quote: fromQuote.reducer,
-    router: routerReducer
+    auth: fromAuth.reducer,
 };
 
 // 注释下面是因为最新版本的ngrx只要StoreModule.forRoot(reducers)即可，下面反而执行不了
@@ -36,8 +42,11 @@ export const getQuoteState = (state: State) => {
     console.log('getQuoteState-state:', state);
     return state.quote;
 };
+export const getAuthState = (state: State) => state.auth;  // 这里直接获取的就是auth的值，不需要auth.auth这样
 // 如果成功了可以测试一下@ngrx/store的createSelector是不是也是一样的效果
 export const getQuote = createSelector(getQuoteState, fromQuote.getQuote);
+
+
 
 @NgModule({
     imports: [
@@ -48,7 +57,8 @@ export const getQuote = createSelector(getQuoteState, fromQuote.getQuote);
         StoreDevtoolsModule.instrument({
             maxAge: 25, //Retain last 25 states
             logOnly: environment.production // Restrict extension to log-only mode
-        })
+        }),
+        AppEffectsModule, // 放在reducer里面更合适
     ]
 })
 export class AppStoreModule {};

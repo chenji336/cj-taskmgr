@@ -21,7 +21,6 @@ export class AuthService {
 
     // POST
     register(user: User): Observable<Auth> {
-        user.id = null;
         const uri = `${this.config.uri}/${this.domain}`;
         return this.http
             .get<User[]>(uri, { params: { 'email': user.email } }).pipe(

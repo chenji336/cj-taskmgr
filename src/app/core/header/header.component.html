@@ -1,6 +1,6 @@
 <mat-toolbar color='primary'>
   <!-- 如果mat-icon放在button下面显示有问题，那么添加mat-icon-button -->
-  <button mat-icon-button (click)='openSidebar()'>
+  <button mat-icon-button (click)='openSidebar()' *ngIf='(auth$ | async)?.token'>
     <mat-icon>menu</mat-icon>
   </button>
   <!-- 引入的svg使用方法 -->
@@ -8,4 +8,5 @@
   <span>企业协作平台</span>
   <span class='fill-remaining-space'></span>
   <mat-slide-toggle (change)='onChange($event.checked)'>默认模式</mat-slide-toggle>
+  <span><a mat-button (click)='logout()' *ngIf='(auth$ | async)?.token'>退出</a></span>
 </mat-toolbar>
