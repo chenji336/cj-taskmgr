@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { environment } from '../../environments/environment';
 import * as fromQuote from './quote.reducer';
 import * as fromAuth from './auth.reducer';
+import * as fromProject from './project.reducer';
 import { Auth } from '../domain/auth.model';
 import { AppEffectsModule } from '../effects';
 
@@ -15,16 +16,19 @@ import { AppEffectsModule } from '../effects';
 export interface State {
     quote: fromQuote.State,
     auth: Auth,
+    projects: fromProject.State,
 }
 
 const initialState: State = {
     quote: fromQuote.initialState,
-    auth: fromAuth.initialState
+    auth: fromAuth.initialState,
+    projects: fromProject.initialState,
 };
 
 const reducers = {
     quote: fromQuote.reducer,
     auth: fromAuth.reducer,
+    projects: fromProject.reducer,
 };
 
 // 注释下面是因为最新版本的ngrx只要StoreModule.forRoot(reducers)即可，下面反而执行不了
@@ -43,10 +47,11 @@ export const getQuoteState = (state: State) => {
     return state.quote;
 };
 export const getAuthState = (state: State) => state.auth;  // 这里直接获取的就是auth的值，不需要auth.auth这样
+export const getProjectsState = (state: State) => state.projects;
+
 // 如果成功了可以测试一下@ngrx/store的createSelector是不是也是一样的效果
 export const getQuote = createSelector(getQuoteState, fromQuote.getQuote);
-
-
+export const getProjects = createSelector(getProjectsState, fromProject.getAll);
 
 @NgModule({
     imports: [
