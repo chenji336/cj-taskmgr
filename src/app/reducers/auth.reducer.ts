@@ -8,11 +8,16 @@ export function reducer(state = initialState, action: actions.Actions) {
     switch (action.type) {
         case actionTypes.LOGIN_SUCCESS:
         case actionTypes.REGISTER_SUCCESS:
-            return {...state, ...<Auth>action.payload};
+            const auth = <Auth>action.payload;
+            return {
+                ...auth,
+                token: auth.token,
+                userId: auth.user.id
+            };
         case actionTypes.LOGIN_FAIL:
         case actionTypes.REGISTER_FAIL:
             return initialState;
-        default: 
+        default:
             return state;
     }
 }

@@ -81,14 +81,10 @@
   ],
   "projects": [
     {
-      "id": 1,
-      "name": "itemMame-1",
+      "name": "itemMame-2",
       "desc": "this is a ent project",
-      "coverImg": "assets/img/covers/0.jpg",
-      "members": [
-        "1",
-        "2"
-      ]
+      "coverImg": "/assets/img/covers/36.jpg",
+      "id": 1
     },
     {
       "id": 2,
@@ -104,6 +100,69 @@
       "desc": "ddd",
       "coverImg": "/assets/img/covers/15.jpg",
       "id": 3
+    },
+    {
+      "name": "ddd",
+      "desc": "ddd",
+      "coverImg": "/assets/img/covers/11.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 4
+    },
+    {
+      "name": "test",
+      "desc": "test describe",
+      "coverImg": "/assets/img/covers/4.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 5
+    },
+    {
+      "name": "123",
+      "desc": "123",
+      "coverImg": "/assets/img/covers/7.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 6
+    },
+    {
+      "name": "chenji-product",
+      "desc": "chenji-product-describe",
+      "coverImg": "/assets/img/covers/5.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 7
+    },
+    {
+      "name": "ccc",
+      "desc": "ccc",
+      "coverImg": "/assets/img/covers/14.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 8
+    },
+    {
+      "name": "fdsfds",
+      "desc": "fdsfds",
+      "coverImg": "/assets/img/covers/39.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 9
+    },
+    {
+      "name": "sdfsd",
+      "desc": "fdsfs",
+      "coverImg": "/assets/img/covers/39.jpg",
+      "members": [
+        "1"
+      ],
+      "id": 10
     }
   ],
   "taskLists": [

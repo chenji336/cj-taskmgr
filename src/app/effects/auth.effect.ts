@@ -35,21 +35,27 @@ export class AuthEffects {
     );
 
     @Effect({dispatch: false})
-    logout$: Observable<Action> = this.actions$.pipe(
+    logout$ = this.actions$.pipe(
         ofType(actions.ActionTypes.LOGOUT),
-        tap(() => this.router.navigate(['/']))
+        tap(() => {
+            this.router.navigate(['/'])
+        })
     );
 
     @Effect({dispatch: false})
-    loginAndNavigate$: Observable<Action> = this.actions$.pipe(
+    loginAndNavigate$ = this.actions$.pipe(
         ofType(actions.ActionTypes.LOGIN_SUCCESS),
-        tap(() => this.router.navigate(['/projects']))
+        tap(() => {
+            this.router.navigate(['/projects'])
+        })
     );
 
     @Effect({dispatch: false})
-    registerAndNavigate$: Observable<Action> = this.actions$.pipe(
+    registerAndNavigate$  = this.actions$.pipe(
         ofType(actions.ActionTypes.REGISTER_SUCCESS),
-        tap(() => this.router.navigate(['/projects']))
+        tap(() => {
+            this.router.navigate(['/projects'])
+        })
     );
 
     constructor(

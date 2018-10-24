@@ -2,7 +2,7 @@
   <span>{{title}}</span>
   <mat-icon class='avatar' [svgIcon]='selected' *ngIf='useSvgIcon; else imgSelect'></mat-icon>
   <ng-template #imgSelect>
-    <img [src]="selected" alt="image selected" class='cover'>
+    <img  mat-card-xl-image [src]="selected" alt="image selected" class='cover'>
   </ng-template>
 </div> 
 

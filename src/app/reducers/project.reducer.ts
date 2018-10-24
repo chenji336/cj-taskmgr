@@ -3,6 +3,8 @@ import * as actions from '../actions/project.action';
 import * as _ from 'lodash';
 import { createSelector } from "reselect";
 
+// reducer返回值不一定是state类型，按照最后的getXxxx来进行返回
+// 没明白State为啥按照这种来定义？而不是直接Project，后续只要操作Project就行？（到时候看视频了解原因）
 export interface State {
     ids: any[],
     entities: { [id: string]: Project },
@@ -15,6 +17,7 @@ export const initialState: State = {
     selectedId: null
 };
 
+// state的值已经在store$中了，如果之前是有数据的，那么state就会有数据
 const addProject = (state, action) => {
     const project = action.payload;
     if (state.entities[project.id]) {
@@ -66,7 +69,8 @@ export function reducer(state = initialState, action: actions.Actions): State {
         case actions.ActionTypes.LOAD_SUCCESS:
             return loadProject(state, action);
         case actions.ActionTypes.SELECT_PROJECT:
-            return { ...state, selectedId: (<Project>action.payload).id };
+            const select_actions = action as actions.SelectAction;
+            return { ...state, selectedId: select_actions.payload.id };
         default:
             return state;
     }
@@ -76,4 +80,5 @@ export const getIds = (state: State) => state.ids;
 export const getEntities = (state: State) => state.entities;
 export const getSelectedId = (state: State) => state.selectedId;
 
+// 返回的值按照这里来决定（所以返回的不一定是state类型的）
 export const getAll = createSelector(getIds, getEntities, (ids, entities) => ids.map(id => entities[id]));

@@ -2,8 +2,9 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
-import { Project } from '../domain';
+import { Project, User } from '../domain';
 import { mergeMap, count, switchMap, mapTo } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 @Injectable()
 export class ProjectService {
@@ -73,4 +74,15 @@ export class ProjectService {
     );
   }
 
+  invite(projectId: string, users: User[]): Observable<Project> {
+    const uri = `${this.config.uri}/${this.domain}/${projectId}`;
+    return this.http.get(uri).pipe(
+      switchMap((project: Project) => {
+        const existingMembers = project.memebers;
+        const inviteIds = users.map(user => user.id);
+        const newIds = _.union(existingMembers, inviteIds);
+        return this.http.patch<Project>(uri, JSON.stringify({members: newIds}), {headers: this.headers})
+      })
+    );
+  }
 }
