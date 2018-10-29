@@ -4,6 +4,8 @@ import { QuoteEffect } from "./quote.effect";
 import { AuthEffects } from "./auth.effect";
 import { ProjectEffect } from "./project.effect";
 import { TaskListEffects } from "./task-list.effect";
+import { TaskEffects } from './task.effect';
+import { UserEffects } from './user.effect';
 
 @NgModule({
     imports: [
@@ -12,6 +14,7 @@ import { TaskListEffects } from "./task-list.effect";
             AuthEffects,
             ProjectEffect,
             TaskListEffects,
+            TaskEffects,
         ])
     ],
     exports: [],

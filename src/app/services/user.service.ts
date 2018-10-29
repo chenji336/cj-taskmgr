@@ -58,7 +58,7 @@ export class UserService {
         return this.http.patch<User>(uri, JSON.stringify({ projectIds: toUpdate }), { headers: this.headers });
     }
 
-    batchupdateProjectRef(project: Project): Observable<User[]> {
+    batchUpdateProjectRef(project: Project): Observable<User[]> {
         const projectId = project.id;
         const memebersIds = project.memebers? project.memebers : [];
         return from(memebersIds).pipe(
