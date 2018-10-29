@@ -143,6 +143,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     });
   }
 
+  selectProject(project: Project) {
+    this.store$.dispatch(new actions.SelectAction(project));
+  }
+
   trackByProjectId(index: number, project: any) {
     return project.id;
   }

@@ -84,7 +84,10 @@
       "name": "itemMame-2",
       "desc": "this is a ent project",
       "coverImg": "/assets/img/covers/36.jpg",
-      "id": 1
+      "id": 1,
+      "members": [
+        "1"
+      ]
     },
     {
       "id": 2,
@@ -167,22 +170,10 @@
   ],
   "taskLists": [
     {
-      "name": "list3",
+      "name": "list1111",
       "order": 1,
       "projectId": "1",
-      "id": 1
-    },
-    {
-      "name": "list1",
-      "order": 1,
-      "projectId": "1",
-      "id": 2
-    },
-    {
-      "name": "list1",
-      "order": 1,
-      "projectId": "1",
-      "id": 3
+      "id": 4
     }
   ],
   "quotes": [

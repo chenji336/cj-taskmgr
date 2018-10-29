@@ -1,12 +1,12 @@
-<form>
+<form [formGroup]='form'>
     <h3 mat-dialog-title>{{title}}</h3>
     <mat-dialog-content>
       <mat-form-field class="full-width">
-        <input type="text" matInput placeholder="列表名称">
+        <input type="text" matInput placeholder="列表名称" formControlName='name'>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button type="button" mat-raised-button color="primary" (click)="onClick()">保存</button>
+      <button type="button" mat-raised-button color="primary" (click)="onClick(form)" [disabled]='!form.valid'>保存</button>
       <button type="button" mat-button [mat-dialog-close]>关闭</button>
     </mat-dialog-actions>
   </form>

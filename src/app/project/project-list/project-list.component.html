@@ -2,6 +2,7 @@
   <app-project-item *ngFor="let project of (projects$ | async);trackBy: trackByProjectId"
                     [item]="project"
                     class="card"
+                    (onSelected)='selectProject(project)'
                     (onInvite)='launchInviteDialog()'
                     (onEdit)='launchUpdateDialog(project)'
                     (onDel)='launchConfirmDialog(project)'>

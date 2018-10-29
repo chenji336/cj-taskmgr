@@ -1,6 +1,10 @@
 
 GET http://localhost:3000/projects/?members_like=2
 
+### 
+# 测试一下获取官网的信息
+GET https://api.srv.jpush.cn/v1/website/user/info
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDA0NjI2MTc3ODksImp0aSI6IjRkYTQzOGQxOTE3ODRlZTM5YTQwNWE5ODBmOGY4ZWNiIiwibmFtZSI6IjIxNWQ0Mzg5OTQ3MjEzZGQiLCJzdWIiOiJKUHVzaCIsInRpbWVzIjoxLCJ1aWQiOjM4MzY5N30.Tw2I3M710slWajhp0xSlhmRgm5gr1mctHDYE0ZoEyRM
 ###
 GET http://localhost:3000/projects
 
@@ -8,7 +12,7 @@ GET http://localhost:3000/projects
 GET http://localhost:3000/projects/taskLists
 
 ###
-GET http://localhost:3000/taskLists
+GET http://localhost:3000/taskLists/?projectId=1
 
 ###
 POST http://localhost:3000/taskLists

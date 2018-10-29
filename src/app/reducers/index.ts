@@ -1,4 +1,4 @@
-import { StoreModule, MetaReducer } from '@ngrx/store';
+import { StoreModule, MetaReducer, ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -6,30 +6,43 @@ import { createSelector } from 'reselect';
 import { NgModule } from '@angular/core';
 
 import { environment } from '../../environments/environment';
+import { Auth } from '../domain/auth.model';
+import { AppEffectsModule } from '../effects';
 import * as fromQuote from './quote.reducer';
 import * as fromAuth from './auth.reducer';
 import * as fromProject from './project.reducer';
-import { Auth } from '../domain/auth.model';
-import { AppEffectsModule } from '../effects';
+import * as fromTaskList from './task-list.reducer';
 
 
 export interface State {
     quote: fromQuote.State,
     auth: Auth,
     projects: fromProject.State,
+    taskLists: fromTaskList.State
 }
 
 const initialState: State = {
     quote: fromQuote.initialState,
     auth: fromAuth.initialState,
     projects: fromProject.initialState,
+    taskLists: fromTaskList.initialState,
 };
 
 const reducers = {
     quote: fromQuote.reducer,
     auth: fromAuth.reducer,
     projects: fromProject.reducer,
+    taskLists: fromTaskList.reducer,
 };
+
+// 测试环境嵌入这些插件，storeFreeze也是
+export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
+    return function(state: State, action: any): State {
+        console.log('state', state);
+        console.log('action', action);
+        return reducer(state, action);
+    }
+} 
 
 // 注释下面是因为最新版本的ngrx只要StoreModule.forRoot(reducers)即可，下面反而执行不了
 /* const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -39,7 +52,7 @@ export function reducer(state = initialState, action: any): State {
 } */
 // 是否可以用下面的替换上面的了？后续做的时候解答
 // 解答： 跟老版本是等价的。freeze其实就是不让state进行属性的扩展，在该commit的login.component.ts中可以看到
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [storeFreeze]: [];
+export const metaReducers: MetaReducer<State>[] = !environment.production ? [logger, storeFreeze]: [];
 
 
 export const getQuoteState = (state: State) => {
@@ -48,10 +61,12 @@ export const getQuoteState = (state: State) => {
 };
 export const getAuthState = (state: State) => state.auth;  // 这里直接获取的就是auth的值，不需要auth.auth这样
 export const getProjectsState = (state: State) => state.projects;
+export const getTaskListState = (state: State) => state.taskLists;
 
 // 如果成功了可以测试一下@ngrx/store的createSelector是不是也是一样的效果
 export const getQuote = createSelector(getQuoteState, fromQuote.getQuote);
 export const getProjects = createSelector(getProjectsState, fromProject.getAll);
+export const getTaskLists = createSelector(getTaskListState, fromTaskList.getSelected);
 
 @NgModule({
     imports: [

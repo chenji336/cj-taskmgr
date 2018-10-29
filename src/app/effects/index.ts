@@ -3,6 +3,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { QuoteEffect } from "./quote.effect";
 import { AuthEffects } from "./auth.effect";
 import { ProjectEffect } from "./project.effect";
+import { TaskListEffects } from "./task-list.effect";
 
 @NgModule({
     imports: [
@@ -10,6 +11,7 @@ import { ProjectEffect } from "./project.effect";
             QuoteEffect, 
             AuthEffects,
             ProjectEffect,
+            TaskListEffects,
         ])
     ],
     exports: [],

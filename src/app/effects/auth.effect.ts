@@ -18,7 +18,9 @@ export class AuthEffects {
         map((action: actions.LoginAction) => action.payload),
         switchMap(({ email, password }) =>
             this.service$.login(email, password).pipe(
-                map(auth => new actions.LoginSuccessAction(auth)),
+                map(auth => {
+                    return new actions.LoginSuccessAction(auth);
+                }),
                 catchError(err => of(new actions.LoginFailAction(JSON.stringify(err))))
             ))
     );

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TaskHomeComponent } from './task-home/task-home.component';
 
 const routes: Routes = [
-    { path: 'tasklists', component: TaskHomeComponent }
+    { path: 'tasklists/:id', component: TaskHomeComponent } // 跟app-routing.module没对应上没问题？
 ];
 
 @NgModule({
