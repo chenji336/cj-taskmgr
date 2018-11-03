@@ -15,6 +15,7 @@ import { UserEffects } from './user.effect';
             ProjectEffect,
             TaskListEffects,
             TaskEffects,
+            UserEffects,
         ])
     ],
     exports: [],

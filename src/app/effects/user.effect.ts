@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
 import * as actions from '../actions/user.action';
 import * as fromRoot from '../reducers';
 import { UserService } from '../services/user.service';
@@ -13,8 +13,11 @@ export class UserEffects {
   loadUsers$: Observable<Action> = this.actions$.pipe(
     ofType(actions.ActionTypes.LOAD),
     map((action: actions.LoadAction) => action.payload),
-    switchMap(projectId => this.service$.gethUsersByProject(projectId).pipe(
-        map(users => new actions.LoadSuccessAction(users)),
+    // 老师这里使用switchMap不太合适，因为switchMap会把后面的代替前面的，使用mergeMap更合适些
+    mergeMap(projectId => this.service$.gethUsersByProject(projectId).pipe(
+        map(users =>{
+          return  new actions.LoadSuccessAction(users);
+        }),
         catchError((err) => of(new actions.LoadFailAction(JSON.stringify(err))))))
   );
 

@@ -5,7 +5,7 @@
   </mat-dialog-content>
   <!-- mat-dialog-actions不要放在mat-dialog-content里面，要不然样式会有些问题 -->
   <mat-dialog-actions>
-    <button type="button" mat-raised-button color="primary">保存</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]='!f.valid'>保存</button>
     <button type="button" mat-button [mat-dialog-close]>关闭</button>
   </mat-dialog-actions>
 </form>

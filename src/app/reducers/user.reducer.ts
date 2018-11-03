@@ -75,7 +75,10 @@ export function reducer(state = initialState, action: actions.Actions ): State {
 }
 
 export const getIds = (state: State) => state.ids;
-export const getEntities = (state: State) => state.entities;
+export const getEntities = (state: State) => {
+    console.log('state.entities:', state.entities);
+    return state.entities;
+};
 
 export const getUsers = createSelector(getIds, getEntities, (ids, entities) => {
   return ids.map(id => entities[id]);

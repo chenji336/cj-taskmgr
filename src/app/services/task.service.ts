@@ -16,7 +16,6 @@ export class TaskService {
 
     // POST
     add(task: Task): Observable<Task> {
-        task.id = null;
         const uri = `${this.config.uri}/${this.domain}`;
         return this.http
             .post<Task>(uri, JSON.stringify(task), { headers: this.headers });
@@ -26,14 +25,8 @@ export class TaskService {
     update(task: Task): Observable<Task> {
         const uri = `${this.config.uri}/${this.domain}/${task.id}`;
         const toUpdate = {
-            name: task.desc,
-            desc: task.priority,
-            coverImg: task.dueDate,
-            reminder: task.reminder,
-            ownerId: task.ownerId,
-            participantIds: task.participantIds,
-            remark: task.remark
-        }
+           ...task
+        };
         return this.http
             .patch<Task>(uri, JSON.stringify(toUpdate), { headers: this.headers });
     }
@@ -78,5 +71,10 @@ export class TaskService {
             mergeMap(task => this.move(task.id, targetListId)),
             reduce((arr: Task[], x: Task) => [...arr, x], []) // reduce需要给参数类型，否则默认是any[]
         )
+    }
+
+    getUserTasks(userId: string): Observable<Task[]> {
+        const uri = `${this.config.uri}/${this.domain}`;
+        return this.http.get<Task[]>(uri, {params: {ownerId: userId}});
     }
 }

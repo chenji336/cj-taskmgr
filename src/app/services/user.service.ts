@@ -29,7 +29,7 @@ export class UserService {
 
     gethUsersByProject(projectId: string): Observable<User[]> {
         const uri = `${this.config.uri}/${this.domain}`;
-        return this.http.get<User[]>(uri, { params: { 'projectId_like': projectId } });
+        return this.http.get<User[]>(uri, { params: { 'projectIds_like': projectId } });
     }
 
     // 给用户添加project(应该是邀请组成员)
@@ -60,7 +60,7 @@ export class UserService {
 
     batchUpdateProjectRef(project: Project): Observable<User[]> {
         const projectId = project.id;
-        const memebersIds = project.memebers? project.memebers : [];
+        const memebersIds = project.members? project.members : [];
         return from(memebersIds).pipe(
             switchMap(id => {
                 const uri = `${this.config.uri}/${this.domain}/id`;

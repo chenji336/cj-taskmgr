@@ -78,7 +78,7 @@ export class ProjectService {
     const uri = `${this.config.uri}/${this.domain}/${projectId}`;
     return this.http.get(uri).pipe(
       switchMap((project: Project) => {
-        const existingMembers = project.memebers;
+        const existingMembers = project.members;
         const inviteIds = users.map(user => user.id);
         const newIds = _.union(existingMembers, inviteIds);
         return this.http.patch<Project>(uri, JSON.stringify({members: newIds}), {headers: this.headers})

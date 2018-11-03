@@ -13,7 +13,7 @@ export interface State {
 export const initialState: State = {
     ids: [],
     entities: {},
-    selectedIds: [],
+    selectedIds: [], // 没有发现selectedIds的作用，直接用ids替换不就行了
 };
 
 const addTaskList = (state, action) => {
@@ -23,7 +23,8 @@ const addTaskList = (state, action) => {
   }
   const newIds = [...state.ids, taskList.id];
   const newEntities = {...state.entities, [taskList.id]: taskList};
-  return {...state, ids: newIds, entities: newEntities};
+  const newSelectedIds = [...state.selectedIds, taskList.id];
+  return {...state, ids: newIds, entities: newEntities, selectedIds: newSelectedIds};
 };
 
 const updateTaskList = (state, action) => {

@@ -3,7 +3,7 @@
                     [item]="project"
                     class="card"
                     (onSelected)='selectProject(project)'
-                    (onInvite)='launchInviteDialog()'
+                    (onInvite)='launchInviteDialog(project)'
                     (onEdit)='launchUpdateDialog(project)'
                     (onDel)='launchConfirmDialog(project)'>
   </app-project-item>

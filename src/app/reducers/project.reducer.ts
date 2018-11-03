@@ -43,17 +43,17 @@ const delProject = (state, action) => {
 
 const loadProject = (state, action) => {
     const projects = action.payload;
-    const incomingIds = projects.map(p => p.id); 
+    const incomingIds = projects.map(p => p.id);
     const newIds = _.difference(incomingIds, state.ids);
     const incomingEntities = _
         .chain(projects)
         .keyBy('id')
         .mapValues(o => o) // 感觉这个没起啥作用
         .value(); // chain之后需要value获取值
-    const newEntities = newIds.reduce((entities, id: string) => ({...entities, [id]: incomingEntities[id]}), {});
+    const newEntities = newIds.reduce((entities, id: string) => ({ ...entities, [id]: incomingEntities[id] }), {});
     return {
         ids: [...state.ids, ...newIds],
-        entities: {...state.entities, ...newEntities},
+        entities: { ...state.entities, ...newEntities },
         selectedId: null
     };
 }
@@ -62,6 +62,7 @@ export function reducer(state = initialState, action: actions.Actions): State {
     switch (action.type) {
         case actions.ActionTypes.ADD_SUCCESS:
             return addProject(state, action);
+        case actions.ActionTypes.INVITE_SUCCESS:
         case actions.ActionTypes.UPDATE_SUCCESS:
             return updateProject(state, action);
         case actions.ActionTypes.DELETE_SUCCESS:

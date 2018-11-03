@@ -63,8 +63,10 @@ export class TaskListEffects {
   @Effect()
   loadTasksInList$: Observable<Action> = this.actions$.pipe(
     ofType(actions.ActionTypes.LOAD),
-    map((action: taskActions.LoadAction) => action.payload),
-    map(lists => new taskActions.LoadAction(lists))
+    map((action: actions.LoadAction) => action.payload),
+    switchMap(projectId => this.service$.get(projectId).pipe(
+      map(taskLists => new taskActions.LoadAction(taskLists)),
+      catchError((err) => of(new actions.LoadFailAction(JSON.stringify(err))))))
   );
 
   constructor(

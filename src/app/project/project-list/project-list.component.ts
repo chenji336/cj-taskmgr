@@ -35,7 +35,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private store$: Store<fromRoot.State>
-  ) { 
+  ) {
     this.store$.dispatch(new actions.LoadAction(null));
     // projects$根据getProjects: Project[]来获取的，
     this.projects$ = this.store$.select(fromRoot.getProjects);
@@ -86,37 +86,20 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     });
   }
 
-  launchInviteDialog() {
-    // 配置显示出来的弹框
-    const config = {
-      width: '300px',
-      height: '300px'
-    };
-    const dialogRef = this.dialog.open(InviteComponent, {data: {
-      members: [
-        {
-          "password": 123456,
-          "name": "李四",
-          "avatar": "avatars:svg-1",
-          "email": "lisixxx@independent.co.uk",
-          "id": 1,
-          "projectIds": [
-            "1"
-          ]
-        },
-        {
-          "password": 123456,
-          "name": "李明",
-          "avatar": "avatars:svg-2",
-          "email": "liming@reddit.com",
-          "id": 2,
-          "projectIds": [
-            "1"
-          ]
-        }]
-    }});
+  launchInviteDialog(project: Project) {
+    this.store$.select(fromRoot.getProjectUsers(project.id)).pipe(
+      take(1),
+      map(users => this.dialog.open(InviteComponent, { data: { members: users } })),
+      switchMap(dialogRef => dialogRef.afterClosed().pipe(
+        take(1),
+        filter(n => n)
+      ))
+    ).subscribe(val => this.store$.dispatch(new actions.InviteAction({
+        projectId: project.id,
+        members: val
+      })));
   }
-  
+
   launchUpdateDialog(project: Project) {
     const dialogRef = this.dialog.open(NewProjectComponent, {
       data: {
@@ -139,7 +122,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       take(1),
       filter(n => n),
     ).subscribe(_ => {
-     this.store$.dispatch(new actions.DeleteAction(project));
+      this.store$.dispatch(new actions.DeleteAction(project));
     });
   }
 

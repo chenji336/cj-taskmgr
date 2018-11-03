@@ -17,16 +17,16 @@ export class InviteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // console.log('this.data.members:', this.data.members);
+    console.log('this.data.members:', this.data.members);
     this.members = [...this.data.members];
   }
 
-  onSubmit(ev: Event, {valid, value}) {
+  onSubmit(ev: Event, {value, valid}) {
     ev.preventDefault();
     if (!valid) {
       return;
     }
-    this.dialogRef.close(this.members);
+    this.dialogRef.close(this.members); // 使用的是model绑定，所以直接使用members
   }
 
 }

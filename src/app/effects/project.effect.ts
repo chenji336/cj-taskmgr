@@ -113,7 +113,9 @@ export class ProjectEffect {
         ofType(actions.ActionTypes.LOAD_SUCCESS),
         map((action: actions.LoadSuccessAction) => action.payload),
         switchMap((projects: Project[]) => from(projects.map(prj => prj.id)).pipe(
-            map(projectId => new userActions.LoadAction(projectId))
+            map(projectId => {
+                return  new userActions.LoadAction(projectId);
+            })
         ))
     );
 

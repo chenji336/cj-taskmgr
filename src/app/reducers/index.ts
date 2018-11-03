@@ -82,13 +82,14 @@ export const getUsers = createSelector(getUsersState, fromUser.getUsers);
 
 export const getUserEntities = createSelector(getUsersState, fromUser.getEntities);
 export const getTasksWithOwners = createSelector(getTasks, getUserEntities, (tasks, userEntities) => {
-    return tasks.map(task => ({
+    const tasksWithOwners = tasks.map(task => ({
         ...task,
         owner: userEntities[task.ownerId],
         participants: task.participantIds.map(id => userEntities[id])
     }))
+    return tasksWithOwners;
 });
-export const getTasksByLists = createSelector(getTaskLists, getTasksWithOwners, (lists, tasks) => {
+export const getTasksByLists = createSelector(getTaskLists, getTasksWithOwners, (lists, tasks) => { // 获取lists+tasks
     return lists.map(list => ({
         ...list,
         tasks: tasks.filter(task => task.taskListId === list.id)
@@ -96,9 +97,9 @@ export const getTasksByLists = createSelector(getTaskLists, getTasksWithOwners, 
 });
 export const getProjectUsers = (projectId: string) => createSelector(
     getProjectsState, 
-    fromUser.getEntities, 
+    getUserEntities, 
     (state, userEntities) => {
-        return state.entities[projectId].memebers.map(id => userEntities[id]);
+        return state.entities[projectId].members.map(id => userEntities[id]);
     }
 );
 
