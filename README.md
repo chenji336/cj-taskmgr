@@ -1,10 +1,13 @@
+[TOC]
+
 ```typescript
 npm i --save @ngrx/core@5.2.0 @ngrx/store@5.2.0 @ngrx/router-store@5.2.0 @ngrx/effects@5.2.0 @ngrx/store-devtools@5.2.0
 npm install --save ngrx-store-freeze
 npm i --save reselect
 ```
 
-# 第1章 课程介绍
+# 第 1 章 课程介绍
+
 ## 1-2 环境搭建
 
 npm i --save 包名: 软件依赖
@@ -16,19 +19,19 @@ json-server: 用于快速搭建 REST API 的利器
     安装： npm install -g json-server
     使用 json-server ./mock/data.json
 
-几种常见的API测试工具
+几种常见的 API 测试工具
 
     POSTMAN
     VSCode: REST Client
     使用### 将请求隔离开
 
-cli安装错误
+cli 安装错误
 
     npm uninstall -g @angular/cli
     npm cache clean
     npm instlal -g @angular/cli
 
-# 第2章 用 Angular Material 组件打造页面
+# 第 2 章 用 Angular Material 组件打造页面
 
 ## 2-1 项目工程结构
 
@@ -41,25 +44,25 @@ cli安装错误
 
 通常要这样写，`import {CoreModule} from './core/core.module';`
 
-但是改成 将core.module改成index.ts就只写 
+但是改成 将 core.module 改成 index.ts 就只写
 
     import {CoreModule} from './core';
 
 就行了，省了很多路径
 
-## 2-2 UI整体布局
+## 2-2 UI 整体布局
 
     ng g c core/header --spec=false
 
-报错，导出前只能在coremodule使用，
+报错，导出前只能在 coremodule 使用，
 
     app-header' is not a known element: ，
 
-在core.module添加
-  
+在 core.module 添加
+
     exports: [HeaderComponent, FooterComponent, SidebarComponent]
 
-本课使用flex的方式来设置css。
+本课使用 flex 的方式来设置 css。
 
 flex 是对容器内的排布。只对直接子元素有用。
 
@@ -109,7 +112,7 @@ others {
 }
 ```
 
-## 2-3 Material介绍
+## 2-3 Material 介绍
 
 https://material.angular.io/
 
@@ -119,11 +122,11 @@ http://materialdesignblog.com/
 
 什么场景适合采用官方的组件库？
 
-* 团队没有能力制作统一的UI风格时.考虑使用.
+- 团队没有能力制作统一的 UI 风格时.考虑使用.
 
-* 优点:兼容性好，可扩展性好，可测试性好，对主题的支持好.
+- 优点:兼容性好，可扩展性好，可测试性好，对主题的支持好.
 
-* 缺点：目前组件仍不算丰富，只有 Material 风格
+- 缺点：目前组件仍不算丰富，只有 Material 风格
 
 SideNav
 
@@ -131,18 +134,18 @@ SideNav
     npm i --save @angular/material @angular/cdk
 
 Q: Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide:
-A: 引入主题css文件中 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+A: 引入主题 css 文件中 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
     <mat-sidenav #sidenav mode="over" align="end">
 
-一个container中可以有2个sidenav , align= start , 左边, end 右边
+一个 container 中可以有 2 个 sidenav , align= start , 左边, end 右边
 
     <mat-toolbar color="primary"></mat-toolbar>
     <mat-toolbar color="accent"></mat-toolbar>
 
-主色，配色  accent 指配色
+主色，配色 accent 指配色
 
-## SideNav 
+## SideNav
 
 1. 用途：侧边栏导航，同时可以作为容器
 2. 侧滑的三种模式： over, push , side
@@ -150,14 +153,14 @@ A: 引入主题css文件中 @import "~@angular/material/prebuilt-themes/deeppurp
 
 ## Toolbar
 
-1. 用途: 一般用于头部、标题栏
-2. 通过 <md-toolbar-row> 支持多行
-3. 默认内部布局是基于flex的
+1.  用途: 一般用于头部、标题栏
+2.  通过 <md-toolbar-row> 支持多行
+3.  默认内部布局是基于 flex 的
 
         在coremodule 引入MatToolbarModule
         在appmodule import MatSidenavModule
 
-header 并不知道 sidebar在哪儿 所以用output与根组件交互数据~
+header 并不知道 sidebar 在哪儿 所以用 output 与根组件交互数据~
 
 ```typescript
 header.ts
@@ -178,31 +181,35 @@ mat-icon 无损缩放，基于字体的
     支持 svg : 通过注入 mdiconRegistry 和 DomSanitizer
 
 ```typescript
-this.addSvgIcon('project', this.sanitizer.bypassSecurityTrustResourceUrl('assets/img/sidebar/project.svg'));
+this.addSvgIcon(
+  "project",
+  this.sanitizer.bypassSecurityTrustResourceUrl(
+    "assets/img/sidebar/project.svg"
+  )
+);
 ```
 
+报错找不到 HttpProvider，在 appmodule 中导入 HttpClientModule
 
-报错找不到 HttpProvider，在appmodule中导入 HttpClientModule
-
-* 避免重复加载，创建utils/svg.utils.ts 
+- 避免重复加载，创建 utils/svg.utils.ts
 
 ```typescript
 export const loadSvgResources = (ir: MatIconRegistry, ds: DomSanitizer) => {
-  ir.addSvgIcon('gifts', ds.bypassSecurityTrustResourceUrl('assets/gifts.svg'));
-}
+  ir.addSvgIcon("gifts", ds.bypassSecurityTrustResourceUrl("assets/gifts.svg"));
+};
 ```
 
-避免在header使用时还是要导入，麻烦。我们在coremodule中导入。
-
+避免在 header 使用时还是要导入，麻烦。我们在 coremodule 中导入。
 
 ```typescript
 export class CoreModule {
   constructor(
     @Optional() @SkipSelf() parent: CoreModule,
     ir: MatIconRegistry,
-    ds: DomSanitizer) {
+    ds: DomSanitizer
+  ) {
     if (parent) {
-      throw new Error('模块已存在，不能再次加载!');
+      throw new Error("模块已存在，不能再次加载!");
     }
     loadSvgResources(ir, ds);
   }
@@ -211,7 +218,7 @@ export class CoreModule {
 
 ## 2-5 Input 组件
 
-__Install Component__
+**Install Component**
 
 ```typescript
 ng g m login
@@ -230,11 +237,11 @@ full--如果 login后面什么都不放就导航到 login
 
 ```
 
-HTML 
+HTML
 
 ```html
 # app.component.html
-    <main> <router-outlet></router-outlet> </main>
+<main><router-outlet></router-outlet></main>
 
 #login.compoennt.html
 <mat-card>
@@ -245,7 +252,7 @@ HTML
   <mat-card-content>
     <mat-input-container>
       <span matPrefix="">wang</span>
-      <input matInput type="text" placeholder="您的email">
+      <input matInput type="text" placeholder="您的email" />
       <span matSuffix>@gmail.com</span>
       <mat-hint></mat-hint>
       <mat-label></mat-label>
@@ -258,12 +265,9 @@ HTML
   </mat-card-actions>
 </mat-card>
 
-color accent
-mat-input-container
-    floatPlaceholder float 默认
-    floatPlaceholder always 一直在动画
-    floatPlaceholder never 一直在动画
-hintLabel="必填项" 输入框下面有提示
+color accent mat-input-container floatPlaceholder float 默认 floatPlaceholder
+always 一直在动画 floatPlaceholder never 一直在动画 hintLabel="必填项"
+输入框下面有提示
 ```
 
 Input
@@ -272,7 +276,7 @@ Input
     <md-error> : 只能验证不通过时才出现，对两种类型表单都是如此
     <md-hint> : 当error显示时, hint 会隐藏
 
-模块增多后，尽量放在sharedModule
+模块增多后，尽量放在 sharedModule
 
 ```typescript
 # login.module
@@ -285,7 +289,7 @@ imports: [BrowserModule, SharedModule, CoreModule, LoginModule, AppRoutingModule
 
 ## 2-6 Card 和 Button 组件
 
-__card __ 适合图文形式突出某一主题
+**card ** 适合图文形式突出某一主题
 
 ```typescript
   <mat-card>
@@ -301,26 +305,26 @@ __card __ 适合图文形式突出某一主题
 
 ```
 
-__Button__
+**Button**
 
 md-button 是以指令形式提供的
 标准按钮: md-button, md-raised-button, md-icon-button
 浮动按钮: md-fab, md-fab-mini
 
-不指明 type 默认为submit, 指定为type=button
+不指明 type 默认为 submit, 指定为 type=button
 
     <button mat-raised-button type="button">登录</button>
 
-mat-类型|效果
----|---
-mat-raised-button | 浮起的效果
-mat-fab-button  | 圆形效果
-mat-mini-fab    | 更小的圆形效果
+| mat-类型          | 效果           |
+| ----------------- | -------------- |
+| mat-raised-button | 浮起的效果     |
+| mat-fab-button    | 圆形效果       |
+| mat-mini-fab      | 更小的圆形效果 |
 
 容器充满，用户、密码竖排，并将忘记密码放在 右侧
+
 ```css
-# login.component.css
-mat-card{
+# login.component.css mat-card {
   height: 20em;
   flex: 0 0 20em;
 }
@@ -339,25 +343,23 @@ form {
   text-align: end;
 }
 
-# style.css
-.full-width {
+# style.css .full-width {
   width: 100%;
 }
 ```
-
 
     <img mat-card-xl-image src="/assets/quote_fallback.jpg" alt="">
 
 ## 2-7 在侧滑菜单中使用 MdList
 
-__List__
+**List**
 
-* 用户：一般用于列表
-* `<mat-list>`和`<mat-nav-list>`
+- 用户：一般用于列表
+- `<mat-list>`和`<mat-nav-list>`
 
 List item 默认样式 `align:center,flex:row`
 
-使 list item 顶部对齐 
+使 list item 顶部对齐
 
     mat-icon {align-self: flex-start; }
 
@@ -365,7 +367,7 @@ List item 默认样式 `align:center,flex:row`
 
 日视图变成当天的日期
 
-添加31天的日图标，使当日图标自动改变
+添加 31 天的日图标，使当日图标自动改变
 
 ```typescript
 # svg.utils.ts
@@ -385,6 +387,7 @@ ngOnInit() {
 ```
 
 添加类库
+
 ```bash
 npm install --save date-fns
 npm install --save-dev @types/date-fns
@@ -395,6 +398,7 @@ npm install --save-dev @types/date-fns
 主题： 调色板+明暗+叠加
 $my-app-accent: mat-palette($mat-pink,A200, A100, A400);
 默认深浅，亮的主题，暗的主题亮度，
+
 ```typescript
 
 # header.component.html
@@ -454,23 +458,24 @@ $my-dark-theme: mat-dark-theme($my-dark-primary, $my-dark-accent,$my-dark-warn);
   @include angular-material-theme($my-dark-theme)
 }
 ```
+
 ## 2-9 GridList 打造注册页面头像列表
 
-* GridList
+- GridList
 
 用途：用于相似的数据展示，尤其是图片，类似相册。
 
-行为很像表格，有colspan,rolspan等属性。
+行为很像表格，有 colspan,rolspan 等属性。
 
     ng g c login/register --spec=false
 
-* mat-grid-list 属性
+- mat-grid-list 属性
 
- rowHeight="34px"或1,colspan,rowspan
+rowHeight="34px"或 1,colspan,rowspan
 
-* map() 对每个元素处理返回新的元素
+- map() 对每个元素处理返回新的元素
 
-* svg图标集合使用方法： name:svg-${id}
+- svg 图标集合使用方法： name:svg-\${id}
 
 ```typescript
 # SharedModule
@@ -494,9 +499,9 @@ ir.addSvgIconSetInNamespace('avatars', ds.bypassSecurityTrustResourceUrl(`${avat
 
 ## 2-10 对话框的使用
 
-* 对话框很特殊，需要在模块中的 entryComponents中声明,因为是直接使用在ts中的
-* 传递数据： const dialogRef = dialog.open(YourDialog, {data:'your data'})
-* 接收数据： constructor(@Inject(MD_DIALOG_DATA) public data:any) {}
+- 对话框很特殊，需要在模块中的 entryComponents 中声明,因为是直接使用在 ts 中的
+- 传递数据： const dialogRef = dialog.open(YourDialog, {data:'your data'})
+- 接收数据： constructor(@Inject(MD_DIALOG_DATA) public data:any) {}
 
 ```typescript
 ng g m project
@@ -538,13 +543,19 @@ export class ProjectListComponent implements OnInit {
 
 ```html
 # ProjectListComponent html
-<app-project-item *ngFor="let project of projects"
+<app-project-item
+  *ngFor="let project of projects"
   [item]="project"
-  class="card">
-
+  class="card"
+>
 </app-project-item>
 
-<button class="fab-button" mat-fab type="button" (click)="openNewProjectDialog()">
+<button
+  class="fab-button"
+  mat-fab
+  type="button"
+  (click)="openNewProjectDialog()"
+>
   <mat-icon>add</mat-icon>
 </button>
 
@@ -556,7 +567,7 @@ export class ProjectListComponent implements OnInit {
       {{item.name}}
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-image [src]="item.coverImg" alt="项目封面">
+  <img mat-card-image [src]="item.coverImg" alt="项目封面" />
   <mat-card-content>
     {{item.desc}}
   </mat-card-content>
@@ -586,23 +597,29 @@ export class ProjectItemComponent implements OnInit {
 ```html
 # new-project.component.html
 
-<form >
+<form>
   <h2 mat-dialog-title>新建项目</h2>
   <div mat-dialog-content>
     <mat-input-container class="full-width">
-      <input matInput type="text" placeholder="项目名称">
+      <input matInput type="text" placeholder="项目名称" />
     </mat-input-container>
     <mat-input-container class="full-width">
-      <input matInput type="text" placeholder="项目描述">
+      <input matInput type="text" placeholder="项目描述" />
     </mat-input-container>
     <div mat-dialog-actions>
-      <button type="button" mat-raised-button color="primary" (click)="onClick()">保存</button>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="onClick()"
+      >
+        保存
+      </button>
       <button type="button" mat-button mat-dialog-close>关闭</button>
     </div>
   </div>
 </form>
 ```
-
 
 ```typescript
 # new-project.component.ts
@@ -624,8 +641,7 @@ export class ProjectItemComponent implements OnInit {
 ```
 
 ```css
-# project-list.component.css
-.card {
+# project-list.component.css .card {
   height: 360px;
   flex: 0 0 360px;
   margin: 10px;
@@ -644,7 +660,6 @@ export class ProjectItemComponent implements OnInit {
   z-index: 998;
 }
 ```
-
 
 ## 2-11 Autocomplete 的使用
 
@@ -720,9 +735,9 @@ export class InviteComponent implements OnInit {
 }
 ```
 
-[displayWith]="displayUser"> 而不是  displayUser()
+[displayWith]="displayUser"> 而不是 displayUser()
 
-* 表示传入的是函数不是函数的返回结果
+- 表示传入的是函数不是函数的返回结果
 
 ## 2-12 任务列表之菜单
 
@@ -734,8 +749,7 @@ ng g c task/task-item --spec=false
 ng g c task/task-header --spec=false
 ```
 
-
-* 将 OverlayContainer 注入到 AppComponent比较方便
+- 将 OverlayContainer 注入到 AppComponent 比较方便
 
 ```typescript
 # app.component.ts
@@ -862,17 +876,17 @@ ng g c task/task-header --spec=false
 
 ## 2-13 任务列表之任务组件
 
-几种和HTML对应组件非常像的 Material 组件：
+几种和 HTML 对应组件非常像的 Material 组件：
 
-* 复选框 `<mat-checkbox>`
+- 复选框 `<mat-checkbox>`
 
-* 单选组件 `<mat-radio>`
+- 单选组件 `<mat-radio>`
 
-* 下拉框 `<mat-select>`
+- 下拉框 `<mat-select>`
 
 上节的下拉按钮对应的有点问题。添加上 line-height: 1.
 
-`[ngClass] = {'class': expression}` , 表达式为true时，使用该类
+`[ngClass] = {'class': expression}` , 表达式为 true 时，使用该类
 
 ```typescript
 # task-header.component.css
@@ -977,11 +991,12 @@ mat-icon.avatar {
 ```
 
 ## 2-14 任务列表之新任务对话框
+
 ng g c task/new-task --spec=false
 
 matSuffix 当成后缀使用。
 
-SharedModule中需要引入     MatRadioModule, MatNativeDateModule, MatDatepickerModule,
+SharedModule 中需要引入 MatRadioModule, MatNativeDateModule, MatDatepickerModule,
 
     MatDatepickerModule 需要引入MatNativeDateModule 进行一些序列化
 
@@ -1040,6 +1055,7 @@ export class NewTaskComponent implements OnInit {
 # task-home.component.ts
 
 ```
+
 ## 2-15 任务列表之移动内容对话框
 
 ng g c task/copy-task --spec=false
@@ -1088,6 +1104,7 @@ export class CopyTaskComponent implements OnInit {
 ```
 
 ## 2-16 完成主框架
+
 完成下拉列表的几个按钮, 修改任务的 Dialog。
 
 task-item.component.html 中点击 Checkbox 也会弹出修改任务的对话框。怎样处理？
@@ -1098,17 +1115,17 @@ task-item.component.html 中点击 Checkbox 也会弹出修改任务的对话框
 
 同样 projects 添加/编辑是一样的一个组件。
 
-删除列表按钮 -- 一个确认的对话框。比较通用建立在SharedModule中。
+删除列表按钮 -- 一个确认的对话框。比较通用建立在 SharedModule 中。
 
 完成修改列表名称，添加新列表。
 
-* __Cli 参数__
+- **Cli 参数**
 
 it=--inline-template
 
 is=--inline-style
 
-* 控制台： Could not find HammerJS
+- 控制台： Could not find HammerJS
 
 Material 组件 移动端会用 HammerJS。
 
@@ -1118,7 +1135,7 @@ npm install --save hammerjs
 import 'hammerjs';
 ```
 
-* Coding:
+- Coding:
 
 ```typescript
 $ ng g c shared/confirm-dialog -it -is --spec=false
@@ -1238,36 +1255,36 @@ export class ConfirmDialogComponent implements OnInit {
 
 ```
 
-# 第3章 Angular 动画
+# 第 3 章 Angular 动画
+
 ## 3-1 初识 Angular Animation
 
-为了减少Core体积, animation 不再放到核心库，但也很重要。
+为了减少 Core 体积, animation 不再放到核心库，但也很重要。
 
 https://www.w3.org/TR/web-animations-1/
 
 State 和 Transition
 
-* 动画其实就是从一个状态过渡到另一个状态
+- 动画其实就是从一个状态过渡到另一个状态
 
-* 状态本身包含形状、颜色、大小等等
+- 状态本身包含形状、颜色、大小等等
 
-* State 就是定义状态而 Transitoin 是定义如何过渡 
-
+- State 就是定义状态而 Transitoin 是定义如何过渡
 
 Animate 函数
 
-* Animate 规定了具体怎样过渡，比如时间、过渡的速度等
+- Animate 规定了具体怎样过渡，比如时间、过渡的速度等
 
-* animate 有多个重载形式
+- animate 有多个重载形式
 
+0.2 秒的动画，延时一秒执行。
+transition('green => red', animate('.2s 1s')),
+transition('green => red', animate('<持续时间> <延时时间>')),
 
-0.2秒的动画，延时一秒执行。
-        transition('green => red', animate('.2s 1s')), 
-        transition('green => red', animate('<持续时间> <延时时间>')), 
-
-加载BrowserAnimationsModule尽量放在最后。
+加载 BrowserAnimationsModule 尽量放在最后。
 
     trigger('square', 名称在响应的html中 [@触发器名字]
+
 =组件当中的成员变量或才函数
 
 ```typescript
@@ -1289,75 +1306,93 @@ npm i --save @angular/animations
 class 中添加
   onClick() {this.squareState = this.squareState === 'red' ? 'green' : 'red'; }
 
-# app.module.ts 
+# app.module.ts
 最后引入BrowserAnimationsModule
 ```
 
-## 3-2 缓动函数和关键帧 
+## 3-2 缓动函数和关键帧
 
-__缓动函数__
+**缓动函数**
 
-* 缓动函数指定动画效果在执行时的速度，使其看起来更加真实。
+- 缓动函数指定动画效果在执行时的速度，使其看起来更加真实。
 
-* 当皮球下落时，先是越掉越快，撞到地上后回弹最终才又碰触到地板。
+- 当皮球下落时，先是越掉越快，撞到地上后回弹最终才又碰触到地板。
 
 ease-in 开始慢，后边快， ease-out 相反
 
-ease实际是使用了 cubic-bezier(0.86, 0, 0.07, 1); 调整它的4个参数可得到相应效果，用网站进行查看。
+ease 实际是使用了 cubic-bezier(0.86, 0, 0.07, 1); 调整它的 4 个参数可得到相应效果，用网站进行查看。
 
 easings.net cubic-bezier.com
 
-__关键帧__
+**关键帧**
 
-* W3C的 Web Animation 标准暂时无法支持所有的 cubic-bezier 函数
+- W3C 的 Web Animation 标准暂时无法支持所有的 cubic-bezier 函数
 
-* 帧 - 就是动画中的最小单位影像画面
+- 帧 - 就是动画中的最小单位影像画面
 
-* 关键帧 - 物体运动或变化中的关键动作所处的那一帧
-
+- 关键帧 - 物体运动或变化中的关键动作所处的那一帧
 
 ```typescript
-
-  animations: [
-    trigger('square', [
-        state('green', style({backgroundColor: 'green', height: '100px', transform: 'translateY(-100%)' })),
-        state('red', style({backgroundColor: 'red', height: '100px', transform: 'translateY(100%)' })),
-        transition('green => red', animate('.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)')),
-        transition('red => green', animate(5000, keyframes([
-          style({transform: 'translateY(100%)'}),
-          style({transform: 'translateY(98%)'}),
-          style({transform: 'translateY(95%)'}),
-          style({transform: 'translateY(90%)'}),
-          style({transform: 'translateY(80%)'}),
-          style({transform: 'translateY(60%)'}),
-          style({transform: 'translateY(30%)'}),
-          style({transform: 'translateY(0%)'}),
-          style({transform: 'translateY(-10%)'}),
-          style({transform: 'translateY(-5%)'}),
-          style({transform: 'translateY(-2%)'}),
-          style({transform: 'translateY(0)'}),
-          style({transform: 'translateY(10%)'}),
-          style({transform: 'translateY(15%)'}),
-          style({transform: 'translateY(-15%)'}),
-          style({transform: 'translateY(-40%)'}),
-          style({transform: 'translateY(-80%)'}),
-          style({transform: 'translateY(-90%)'}),
-          style({transform: 'translateY(-95%)'}),
-        ]))),
-      ]
-    )
-  ]
-
+animations: [
+  trigger("square", [
+    state(
+      "green",
+      style({
+        backgroundColor: "green",
+        height: "100px",
+        transform: "translateY(-100%)",
+      })
+    ),
+    state(
+      "red",
+      style({
+        backgroundColor: "red",
+        height: "100px",
+        transform: "translateY(100%)",
+      })
+    ),
+    transition(
+      "green => red",
+      animate(".8s cubic-bezier(0.68, -0.55, 0.265, 1.55)")
+    ),
+    transition(
+      "red => green",
+      animate(
+        5000,
+        keyframes([
+          style({ transform: "translateY(100%)" }),
+          style({ transform: "translateY(98%)" }),
+          style({ transform: "translateY(95%)" }),
+          style({ transform: "translateY(90%)" }),
+          style({ transform: "translateY(80%)" }),
+          style({ transform: "translateY(60%)" }),
+          style({ transform: "translateY(30%)" }),
+          style({ transform: "translateY(0%)" }),
+          style({ transform: "translateY(-10%)" }),
+          style({ transform: "translateY(-5%)" }),
+          style({ transform: "translateY(-2%)" }),
+          style({ transform: "translateY(0)" }),
+          style({ transform: "translateY(10%)" }),
+          style({ transform: "translateY(15%)" }),
+          style({ transform: "translateY(-15%)" }),
+          style({ transform: "translateY(-40%)" }),
+          style({ transform: "translateY(-80%)" }),
+          style({ transform: "translateY(-90%)" }),
+          style({ transform: "translateY(-95%)" }),
+        ])
+      )
+    ),
+  ]),
+];
 ```
-
 
 ## 3-3 项目卡片和任务动画
 
 给动画新建一个文件夹 anims, projects 鼠标移入时放大，移出恢复。
 
-borderShadow 或 'border-shadow'，有横线当不了key
+borderShadow 或 'border-shadow'，有横线当不了 key
 
-@HostBinding('@card') cardState = 'out';  相当于写上　[@card]="cardState"
+@HostBinding('@card') cardState = 'out'; 相当于写上　[@card]="cardState"
 
 鼠标进入时，离开时过场动画
 
@@ -1430,39 +1465,41 @@ export const itemAnim = trigger('item', [
   transition('in => out', animate('100ms ease-out'))
 ])
 ```
+
 ## 3-4 路由动画及高阶动画函数
 
-__实践__
+**实践**
 
-* 路由动画需要在host元数据中指定触发器
+- 路由动画需要在 host 元数据中指定触发器
 
-* 动画注意不要过多，否则适得其反。
+- 动画注意不要过多，否则适得其反。
 
-__Group__
+**Group**
 
-* 用于同时进行一组的动画变换
+- 用于同时进行一组的动画变换
 
-* `[animate(...), animate(...)...]`
+- `[animate(...), animate(...)...]`
 
-__Query & Stagger__
+**Query & Stagger**
 
-* Query 用于父节点寻找子节点
+- Query 用于父节点寻找子节点
 
-* Stagger 指定有多个满足 Query 的元素，每个动画之间有间隔
+- Stagger 指定有多个满足 Query 的元素，每个动画之间有间隔
 
 路由动画和普通动画一样，因为是整个切换，要用 HostBinding, `@HostBinding('@routeAnim') state`
 
-position: 'fixed' 如果没有会上下串位置， flex容器让它居中会调整位置，所以要固定它。
+position: 'fixed' 如果没有会上下串位置， flex 容器让它居中会调整位置，所以要固定它。
 
     transition('void => *', === ':enter'
     transition('* => void', === ':leave'
     别名 :enter,:leave 是一样的
 
-es6写法
-      
-    this.projects = [...this.projects, {key: value}];
+es6 写法
+  
+ this.projects = [...this.projects, {key: value}];
 
-stagger 分别动画出来的。如果没有stagger, 是一起动画出来的。搜索全部的子节点，规定它们的进场动画。也可以是查div。为了让他们有些间隔，所以把间隔时间做出来，后面跟动画。
+stagger 分别动画出来的。如果没有 stagger, 是一起动画出来的。搜索全部的子节点，规定它们的进场动画。也可以是查 div。为了让他们有些间隔，所以把间隔时间做出来，后面跟动画。
+
 ```typescript
 # list.anim.ts
 export const listAnimation = trigger('listAnim', [
@@ -1541,14 +1578,15 @@ export const slideToRight = trigger('routeAnim', [
   @HostBinding('@routeAnim') state;
 ```
 
-# 第4章 Angular 核心概念回顾和提高
+# 第 4 章 Angular 核心概念回顾和提高
+
 ## 4-1 依赖性注入
 
-* 什么是依赖性注入？
+- 什么是依赖性注入？
 
-* 依赖性注入框架
+- 依赖性注入框架
 
-* 依赖性注入进阶
+- 依赖性注入进阶
 
 ```typescript
 令牌-构建-依赖
@@ -1606,7 +1644,6 @@ main() {
 }
 ```
 
-
 简单的依赖注入，还是需要知道细节，只是把责任推到上级了。最后到入口解决，入口就要处理很多问题。还是很麻烦。
 
 所以我们还需要一般的依赖性注入的框架。
@@ -1615,7 +1652,7 @@ main() {
 
 根据 `Provider` 数组 构建一个提供给你依赖性的池子， Provider 数组包含多个 Provider 对象，
 
-Provider 对象，: 两个属性， 1. Provide <令牌>,  2. userClass/useFactory/useValue 
+Provider 对象，: 两个属性， 1. Provide <令牌>, 2. userClass/useFactory/useValue
 
 ```typescript
   constructor(private oc: OverlayContainer) {
@@ -1638,7 +1675,8 @@ Provider 对象，: 两个属性， 1. Provide <令牌>,  2. userClass/useFactor
   }
 
 ```
-通过 Inject来使用
+
+通过 Inject 来使用
 
 ```typescript
 class Person {
@@ -1656,6 +1694,7 @@ Provider 中有 ClassProvider, 所以
       { provide: Person, useClass: Person}, 简写成 Person,
 
 代码实例：
+
 ```typescript
 # core.module.ts
   providers: [{provide: 'BASE_CONFIG', useValue: 'http://localhost:3000'} ]
@@ -1668,7 +1707,7 @@ Provider 中有 ClassProvider, 所以
 
 池子里的都是同一个实例，如果我们想要一个新的实例怎么办？
 
-__方法1:__ 在返回一个工厂方法，而不是对象
+**方法 1:** 在返回一个工厂方法，而不是对象
 
 ```typescript
 { provide: Address, useFactory: () => {
@@ -1681,39 +1720,42 @@ __方法1:__ 在返回一个工厂方法，而不是对象
   } } },
 ```
 
-__方法2: 父子方式__
+**方法 2: 父子方式**
 
 ```typescript
 const childInjector = injector.resolveAndCreateChild([Person]);
 const person = injector.get(Person);
-const personFromChild =  childInjector.get(Person);
+const personFromChild = childInjector.get(Person);
 console.log(person === personFromChild);
 ```
 
 子注入者没有提供 Person ，为什么能找到依赖性呢： 如果子池子找不到，会上父级找。
 
-同理，所以在 module中provide的东西可以在 Component 中使用。在父 Component 中声明的东西子 Component 也可以使用。
+同理，所以在 module 中 provide 的东西可以在 Component 中使用。在父 Component 中声明的东西子 Component 也可以使用。
 
-通常我们不用手动写， 在module或是类的 Provider中提供出来 ,然后在 constructor 中指明它的类型。
+通常我们不用手动写， 在 module 或是类的 Provider 中提供出来 ,然后在 constructor 中指明它的类型。
 
 ## 4-2 ChangeDetection
-__ChangeDetection__
 
-* 检测程序内部状态，然后反映到UI上
+**ChangeDetection**
 
-* 引起状态变化： Events，XHR，Timers
+- 检测程序内部状态，然后反映到 UI 上
 
-* ApplicationRef 监听 NgZone 的 onTurnDone, 然后执行检测。
+- 引起状态变化： Events，XHR，Timers
+
+- ApplicationRef 监听 NgZone 的 onTurnDone, 然后执行检测。
 
 默认策略是全局检查，一般不会引起性能问题，大型应用会影响性能。
 
 OnPush 策略，只有外部发生改变--设置的属性发生变化才进行检测。避免了整个树跑一遍。大型应用会提高性能。
 
-* 手动检测
+- 手动检测
+
 ```typescript
 # project-list.component.ts
   changeDetection: ChangeDetectionStrategy.OnPush
 ```
+
 鼠标划过时，自动添加子组件---解决方法：
 
 constructor(private cd: ChangeDetectorRef) , 然后在要检查的地方添加 `this.cd.markForCheck();` 例:
@@ -1727,33 +1769,33 @@ constructor(private cd: ChangeDetectorRef) , 然后在要检查的地方添加 `
 
 ## 4-3 打造支持拖拽的属性型指令
 
-__指令 Directive__
+**指令 Directive**
 
-* 组件是一种带模板的指令
+- 组件是一种带模板的指令
 
-* 结构型(Structural)指令和属性型(Attribute)指令
+- 结构型(Structural)指令和属性型(Attribute)指令
 
-* 如何自己写一个指令
+- 如何自己写一个指令
 
-__Renderer2 ElementRef__
+**Renderer2 ElementRef**
 
-* Angular 不提倡直接操作 DOM
+- Angular 不提倡直接操作 DOM
 
-* 对于 DOM 的操作应该通过 Renderer2 来进行
+- 对于 DOM 的操作应该通过 Renderer2 来进行
 
-* ElementRef 可以理解成指向 DOM 元素的引用
+- ElementRef 可以理解成指向 DOM 元素的引用
 
 ng g m directive
 ng g d directive/drag --spec=false
 ng g d directive/drop --spec=false
 
-  @Input('appDraggable')
-  set isDraggable(value: boolean) {
-    this._isDraggble = value;
-  }
+@Input('appDraggable')
+set isDraggable(value: boolean) {
+this.\_isDraggble = value;
+}
 
-  this._isDraggble = xxx; 有set 方法后使用时会直接调用 set 方法。
-  appDraggable=true, 
+this.\_isDraggble = xxx; 有 set 方法后使用时会直接调用 set 方法。
+appDraggable=true,
 
 ```typescript
 # drag.directive.ts
@@ -1906,7 +1948,7 @@ export class DragDropService {
                [dragData]="item"
 
 ```
-  
+
 ## 4-4 结构型指令、模块和样式
 
 `*`是一个语法糖
@@ -1919,9 +1961,10 @@ export class DragDropService {
 </ng-template>
 ```
 
-ElementRef 是指 button节点，可以改变它的属性，如果要操作 内部子视图就是用ViewContainerRef
+ElementRef 是指 button 节点，可以改变它的属性，如果要操作 内部子视图就是用 ViewContainerRef
 
-Button 操作里面的 mat-icon ，那么button就是容器。
+Button 操作里面的 mat-icon ，那么 button 就是容器。
+
 ```typescript
 <button class="fab-button" mat-fab type="button" (click)="launchNewListDialog()">
   <mat-icon>add</mat-icon>
@@ -1929,44 +1972,45 @@ Button 操作里面的 mat-icon ，那么button就是容器。
 
 ```
 
-__模块__
+**模块**
 
-* 什么是模块
+- 什么是模块
 
-如果是共用的要export出来，默认只能自己用。
+如果是共用的要 export 出来，默认只能自己用。
 
-* 模块的元数据
-entryComponents：一进来就加载（之前的理解有误），比如dialogComponent
-declare: 在调用的时候才会加载
+- 模块的元数据
+  entryComponents：一进来就加载（之前的理解有误），比如 dialogComponent
+  declare: 在调用的时候才会加载
 
-* 经常看到的forRoot()
+- 经常看到的 forRoot()
 
-源码 是static 方法，两个工场方法
+源码 是 static 方法，两个工场方法
 
 `ng g m services`
 
-为什么会使用forRoot?
-动态定义元数据，返回Module。(NgModule里面的东西动态定义)
+为什么会使用 forRoot?
+动态定义元数据，返回 Module。(NgModule 里面的东西动态定义)
+
 ```typescript
-services.module.ts
+services.module.ts;
 @NgModule()
 export class ServicesModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: ServicesModule,
-      providers: []
+      providers: [],
     };
   }
 }
 ```
 
-__ngClass, ngStyle, [class.yourstyle]__
+**ngClass, ngStyle, [class.yourstyle]**
 
-* ngClass 用于条件动态指定样式类，适合对样式做大量更改的情况。
+- ngClass 用于条件动态指定样式类，适合对样式做大量更改的情况。
 
-* ngStyle 用于条件动态指定样式，适合少量更改的情况。
+- ngStyle 用于条件动态指定样式，适合少量更改的情况。
 
-* `[class.youcondition] = "condition"` 直接对应一个条件
+- `[class.youcondition] = "condition"` 直接对应一个条件
 
 ```typescript
 # task-item.component.html
@@ -1975,7 +2019,7 @@ __ngClass, ngStyle, [class.yourstyle]__
   <div mat-line class="content" [ngClass]="{'completed': item.completed}">
 ```
 
-flex 容器是 按 order 属性的顺序进行排列的，只要设置了list的order属性就可以改变 order值进行排列了。
+flex 容器是 按 order 属性的顺序进行排列的，只要设置了 list 的 order 属性就可以改变 order 值进行排列了。
 
 ```typescript
 # task-home.component.html
@@ -1994,21 +2038,21 @@ flex 容器是 按 order 属性的顺序进行排列的，只要设置了list的
 
 ## 4-5 模板驱动型表单处理
 
-__模板驱动型表单__
+**模板驱动型表单**
 
-* 表单的数据绑定
+- 表单的数据绑定
 
-* 令人困惑的 ngModel
+- 令人困惑的 ngModel
 
-* 数据验证
+- 数据验证
 
 `ng g c task/quick-task --spec=false`
 
     <input .. [(ngModel)]="desc" name="desc">
 
-必须要一个name属性，绑定ngModel后自动创建ControlForm, 为了找到它，使用了name属性。
+必须要一个 name 属性，绑定 ngModel 后自动创建 ControlForm, 为了找到它，使用了 name 属性。
 
-form 标签会自动变成ngForm。变成了angular的form，里面的控件就必须要有名字了。
+form 标签会自动变成 ngForm。变成了 angular 的 form，里面的控件就必须要有名字了。
 
 ```typescript
 [(ngModel)]="desc" 语法糖等于
@@ -2057,31 +2101,33 @@ export class QuickTaskComponent implements OnInit {
 # task-home.component.ts
   handleQuickTask(desc: string) {console.log(desc); }
 ```
+
 ## 4-6 响应式表单处理和自定义表单控件(上)
 
-__响应式表单__
+**响应式表单**
 
-* 三个重要： FormControl, FormGroup, FormBuilder
+- 三个重要： FormControl, FormGroup, FormBuilder
 
-* 验证器和异步验证器
+- 验证器和异步验证器
 
 e.g 前端验证 和 后台取消息验证。如注册。和服务器交互返回结果后完成验证。
 
-* 动态指定验证器
+- 动态指定验证器
 
-__自定义表单控件__
+**自定义表单控件**
 
-* 表单过于复杂之后，逻辑难以理清楚。
+- 表单过于复杂之后，逻辑难以理清楚。
 
-* 复杂问题拆成若干简单问题问题永远是【万能钥匙】
+- 复杂问题拆成若干简单问题问题永远是【万能钥匙】
 
-* 自定义 FormControl 的例子
+- 自定义 FormControl 的例子
 
-先定义formGroup根对象，
+先定义 formGroup 根对象，
 
 `<form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)">`
 
 再定义 formControl
+
 ```typescript
 # ts
     this.form = new FormGroup({
@@ -2095,7 +2141,7 @@ __自定义表单控件__
 
 formControlName 会将将表单绑定到对象
 
-组合 Validators : 使用comopse , 条件1 不为空; 条件2符合 email
+组合 Validators : 使用 comopse , 条件 1 不为空; 条件 2 符合 email
 
       email: new FormControl('wang@163.com', Validators.compose([Validators.required, Validators.email])),
 
@@ -2120,9 +2166,9 @@ formControlName 会将将表单绑定到对象
       password: ['', Validators.required],
     });
 
-__自定义验证器__
+**自定义验证器**
 
-只有在验证错误的时候才返回非空对象， 这个 key,value对象, 通常是返回一个null
+只有在验证错误的时候才返回非空对象， 这个 key,value 对象, 通常是返回一个 null
 
 ```typescript
   validate(c: FormControl): {[key: string]: any}{
@@ -2132,7 +2178,9 @@ __自定义验证器__
     return {emailNotValid: 'The email must start with wang'};
   }
 ```
+
 动态验证
+
 ```typescript
   onSubmit({value, valid}, ev: Event) {
     ...
@@ -2140,31 +2188,28 @@ __自定义验证器__
   }
 ```
 
-
-选择封面和选择头像很像，能否封装成一个FormControl控件, 本身注册表单不关心它有多少图片，怎么选择。现在是复杂化了表单。
+选择封面和选择头像很像，能否封装成一个 FormControl 控件, 本身注册表单不关心它有多少图片，怎么选择。现在是复杂化了表单。
 
 封装自定义表单控件, 简化逻辑
 
 `ng g c shared/image-list-select --spec=false`
 
 想要足够的自由度，还是要封装，可以实现时需要权衡。实现 ControlValueAccessor 接口。
+
 ```typescript
 export class ImageListSelectComponent implements ControlValueAccessor {
-
   //对应的是this.form.setValue()
-  writeValue(obj: any): void {
-  }
+  writeValue(obj: any): void {}
 
-  registerOnChange(fn: any): void {
-  }
+  registerOnChange(fn: any): void {}
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 }
 ```
-writeValue对应的是this.form.setValue() 来写值
 
-需要在provider中定义，把自己注册进去。provide 指向自己需要使用，
+writeValue 对应的是 this.form.setValue() 来写值
+
+需要在 provider 中定义，把自己注册进去。provide 指向自己需要使用，
 
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ImageListSelectComponent)
@@ -2337,19 +2382,24 @@ export class ImageListSelectComponent implements ControlValueAccessor {
 
 
 ```
-# 第5章 Rxjs常见操作符
-## 5-1 RxJS帮你走进响应式编程的世界
-__简介__
 
-* 名字的由来： Reactive Extension
+# 第 5 章 Rxjs 常见操作符
 
-* 源自微软、火于 NetFlix
+## 5-1 RxJS 帮你走进响应式编程的世界
 
-* 优势：在思考的维度上加入时间考量
+**简介**
 
-使用  https://jsbin.com 讲解测试比较直观。
+- 名字的由来： Reactive Extension
 
-height$, $ 表明 stream一个流.
+- 源自微软、火于 NetFlix
+
+- 优势：在思考的维度上加入时间考量
+
+使用 https://jsbin.com 讲解测试比较直观。
+
+在线学习 rxjs：https://www.learnrxjs.io/learn-rxjs/operators/filtering/distinct
+
+height$, $ 表明 stream 一个流.
 
 ```typescript
 # html 中 add library rxjs 5.0.3
@@ -2364,6 +2414,7 @@ height$.subscribe(val => console.log(val.target.value + '  ' + new Date()));
 Rx 有很多强大的操作符，可合并多个流。
 
 示例：求面积
+
 ```typescript
 # html
   <div><input type="text" id="length"></div>
@@ -2389,33 +2440,36 @@ area:   ---------(2,1)-----(2,3)
                   2*1        2*3
                   2           6
 ```
-只改变一个值不进行计算， 我们可以使用zip操作符。
+
+只改变一个值不进行计算， 我们可以使用 zip 操作符。
 
 `const area$ = Rx.Observable.zip(length$, width$, (l, w) => {return l*w;});`
 
-* 本节使用的操作符
+- 本节使用的操作符
 
 combineLatest 有一个值改变就更新。
 
 zip 多个值都改变时才更新。需要一一对应的关系
 
-* 事件流
+- 事件流
 
 理解 Rx 的关键是要把任何变化想像成事件流。
 
 ## 5-2 常见操作符(一)
 
-__常见创建类的操作符__
+**常见创建类的操作符**
 
-from: 可以把数组、Promise以及 Iterable 转化为 Observable
+from: 可以把数组、Promise 以及 Iterable 转化为 Observable
 fromEvent: 可以把事件转化为 Observable
-of: 接受一系列的数据，并把它们emit出去。
+of: 接受一系列的数据，并把它们 emit 出去。
 
-__常见转换操作符: map, mapTo, pluck__
+**常见转换操作符: map, mapTo, pluck**
 
-弹珠图网站, 互动  http://rxmarbles.com/
+mapTo(固定值) 和 pluck（摘） 属于 map 的特殊情况
 
-__map__ 对原始值处理映射新的流
+弹珠图网站, 互动 http://rxmarbles.com/
+
+**map** 对原始值处理映射新的流
 
 `map(x => 10 * x)`
 
@@ -2424,23 +2478,23 @@ __map__ 对原始值处理映射新的流
     const length$ = Rx.Observable.fromEvent(length, 'keyup').pluck('target', 'value');
     const length$ = Rx.Observable.fromEvent(length, 'keyup').map(ev => ev.target.value)
 
-__mapTo__ 适合只关心事件，不关心值的情况下使用
+**mapTo** 适合只关心事件，不关心值的情况下使用
 
     ...mapTo(1) ,返回1,
-    ...map(_ => 1) 
+    ...map(_ => 1)
 
     const length$ = Rx.Observable.from([1,2,3,4]);
     const width$ = Rx.Observable.fromEvent(width, 'keyup').pluck('target', 'value');;
 
-__from__ 操作符
-主要操作数组from([1,2,3,4])---of(1,2,3,4)里面不是数组
+**from** 操作符
+主要操作数组 from([1,2,3,4])---of(1,2,3,4)里面不是数组
 
 -1-2-3-4-------4
 ----------4----4
 ----------\----\
 ----------2----2
 
-__of__ 操作符
+**of** 操作符
 主要操作对象{id:1, value:20}
 
     const length$ = Rx.Observable.of({id:1, value:20},{id:2, value:40});
@@ -2467,7 +2521,7 @@ __of__ 操作符
     pic: '/assets/img/quotes/1.jpg'
   };
   constructor(private fb: FormBuilder, private quoteService: QuoteService) {
-    this.quoteService.getQuote().subscribe(q => {this.quote = q; }); 
+    this.quoteService.getQuote().subscribe(q => {this.quote = q; });
   }
 # quote.service.ts
 export class QuoteService {
@@ -2482,15 +2536,16 @@ export class QuoteService {
 }
 # services.module.ts
       providers: [QuoteService]
-      
+
 ```
+
 ## 5-3 常见操作符(二)
 
-__Observable的性质__
+**Observable 的性质**
 
-* 三种状态： next, error, complete 
+- 三种状态： next, error, complete
 
-* 特殊的： 永不结束，Never, Empty(结束但不发射), Throw
+- 特殊的： 永不结束，Never, Empty(结束但不发射), Throw
 
 常见工具类操作符: do->tap
 
@@ -2498,64 +2553,68 @@ __Observable的性质__
 
 常见数学类操作符: redude
 
-过滤类操作符： filter,take,first/last,skip
+过滤类操作符： filter,take,first/last(take 的特殊情况),skip
 
 常见创建类操作符: Interval, Timer
 
 ```typescript
 const interval$ = Rx.Observable.interval(100).take(3);
 interval$.subscribe(
-  val => console.log(val),
-  err => console.log(err),
-  () => console.log('I am compolelte') // take之后会执行
-)
+  (val) => console.log(val),
+  (err) => console.log(err),
+  () => console.log("I am compolelte") // take之后会执行
+);
 ```
 
 timer 只输出一个值
+
 ```typescript
 const timer$ = Rx.Observable.timer(100);
-timer$.subscribe(v => console.log(v))
+timer$.subscribe((v) => console.log(v));
 ```
 
-`const timer$ = Rx.Observable.timer(100, 100);` 参数1延时时间，参数2循环时间
+`const timer$ = Rx.Observable.timer(100, 100);` 参数 1 延时时间，参数 2 循环时间
 
-do 相当于中间桥梁处理在 subscribe 之前。(临时的的subscribe使用))
+do 相当于中间桥梁处理在 subscribe 之前。(临时的的 subscribe 使用))
 
 ```typescript
-let logLabel = '当前值是'
+let logLabel = "当前值是";
 
 const interval$ = Rx.Observable.interval(100)
-  .map(val => val *2)
-  .do(v => {
+  .map((val) => val * 2)
+  .do((v) => {
     console.log(logLabel + v);
-    logLabel = '当前'
-    })
+    logLabel = "当前";
+  })
   .take(3);
 ```
 
-只有在3个偶数之后流才会结束
+只有在 3 个偶数之后流才会结束
 
 `const interval$ = Rx.Observable.interval(100) .filter(val => val % 2 === 0) .take(3);`
 
 `.first()` 和 `take(1)` 是一样的
 
-.filter(val => val % 2 === 0) .skip(2) 过滤掉前两个0, 2 
+.filter(val => val % 2 === 0) .skip(2) 过滤掉前两个 0, 2
 
-__scan__
+**scan**
 
 ```typescript
 const interval$ = Rx.Observable.interval(100)
-  .filter(val => val % 2 === 0)
-  .scan((x, y) => {return x+y})
+  .filter((val) => val % 2 === 0)
+  .scan((x, y) => {
+    return x + y;
+  }) // x 是累加值，y是当前值（filter 传递过来的值）
   .take(4);
 ```
-参数1:accumulater, 累加器默认是0, 返回结果作为下次累加值传入，
+
+参数 1:accumulater, 累加器默认是 0, 返回结果作为下次累加值传入，
 
     0-----1----2----3----4----5-----6----
     0----------2---------4----------6----
     0----------2---------6----------12---
 
-reduce 只发射最后值(但是执行步骤还是一样的)，所以这里take是没用的。
+reduce 只发射最后值(但是执行步骤还是一样的)，所以这里 take 是没用的。
 
     .filter(val => val % 2 === 0) .reduce((x, y) => {return x+y}) .take(4);
 
@@ -2565,22 +2624,21 @@ reduce 只发射最后值(但是执行步骤还是一样的)，所以这里take�
 
 reduce 不是只针对数组，可对集合处理，字典处理。
 
-    .filter(val => val % 2 === 0) .take(4) .reduce((x, y) => {return [...x, y]}, []) ---[0,2,4,6], 
-    
+    .filter(val => val % 2 === 0) .take(4) .reduce((x, y) => {return [...x, y]}, []) ---[0,2,4,6],
 
 手动 throw error
 
     .map( val => {throw '出错了'}) .take(4) .reduce((x, y) => {return [...x, y]}, [])
 
-自带never `const interval$ = Rx.Observable.never()` 直接无尽序列
+自带 never `const interval$ = Rx.Observable.never()` 直接无尽序列
 
 `const interval$ = Rx.Observable.throw('出错了')`
 
 `const interval$ = Rx.Observable.empty()` 直接进入 complete
 
-### 实现一个DebugUtil
+### 实现一个 DebugUtil
 
-core中引入 `import '../utils/debug.util';`
+core 中引入 `import '../utils/debug.util';`
 
 ```typescript
 # src/app/utils/debug.util.ts
@@ -2596,7 +2654,6 @@ Observable.prototype.debug = function (message: string) {
   );
 };
 ```
-
 
 ## 5-4 常见操作符(三)
 
@@ -2617,31 +2674,42 @@ zip 严格要求成对匹配，才产生新流。
 
 withLatestFrom 以源事件流为基准，主流产生数据时去取另一个流最新值。
 
-* debounce 滤波, http请求自动提示时常用。
-```typescript
-const length = document.getElementById('length');
+- debounce 滤波, http 请求自动提示时常用。
 
-const length$ = Rx.Observable.fromEvent(length, 'keyup').pluck('target', 'value').debounce(() => Rx.Observable.interval(300));
-const length$ = Rx.Observable.fromEvent(length, 'keyup').pluck('target', 'value').debounceTime(300);
-length$.subscribe(val => console.log(val));
+```typescript
+const length = document.getElementById("length");
+
+const length$ = Rx.Observable.fromEvent(length, "keyup")
+  .pluck("target", "value")
+  .debounce(() => Rx.Observable.interval(300));
+const length$ = Rx.Observable.fromEvent(length, "keyup")
+  .pluck("target", "value")
+  .debounceTime(300);
+length$.subscribe((val) => console.log(val));
 ```
 
-* distinct 扔掉相同的流
+- distinct 扔掉相同的流
+
 ```typescript
 # const length$ = Rx.Observable.fromEvent(length, 'keyup').pluck('target', 'value') .distinctUntilChanged();
 ```
 
-* merge 简单合并
+- merge 简单合并
+
 ```typescript
-const length = document.getElementById('length');
-const length$ = Rx.Observable.fromEvent(length, 'keyup').pluck('target', 'value');
-const width = document.getElementById('width');
-const width$ = Rx.Observable.fromEvent(width, 'keyup').pluck('target', 'value');
+const length = document.getElementById("length");
+const length$ = Rx.Observable.fromEvent(length, "keyup").pluck(
+  "target",
+  "value"
+);
+const width = document.getElementById("width");
+const width$ = Rx.Observable.fromEvent(width, "keyup").pluck("target", "value");
 const merged$ = Rx.Observable.merge(length$, width$);
-merged$.subscribe(val => console.log(val));
+merged$.subscribe((val) => console.log(val));
 ```
 
-* concat
+- concat
+
 ```typescript
 # const merged$ = Rx.Observable.concat(length$, width$);
 concat 时第二个永远不会输出，因为此例中length是无穷序列。
@@ -2650,28 +2718,35 @@ const first$ =  Rx.Observable.from([1,2,3,4])
 const merged$ = Rx.Observable.concat(first$, width$);
 ```
 
-* startWith 相当于赋初始值0
+- startWith 相当于赋初始值 0
+
 ```typescript
-const first$ =  Rx.Observable.from([1,2,3,4]).startWith(0)
+const first$ = Rx.Observable.from([1, 2, 3, 4]).startWith(0);
 ```
 
-* combineLatest 任一值改变时有输出
+- combineLatest 任一值改变时有输出
+
 ```typescript
-const merged$ = Rx.Observable.combineLatest(length$, width$, (l,w) => l*w);
+const merged$ = Rx.Observable.combineLatest(length$, width$, (l, w) => l * w);
 ```
 
-* _zip 对齐，两个流都变化时输出，最新值
+- \_zip 对齐，两个流都变化时输出，最新值
+
 ```typescript
-const merged$ = Rx.Observable.zip(length$, width$, (l,w) => l*w);
+const merged$ = Rx.Observable.zip(length$, width$, (l, w) => l * w);
 ```
-_
-* withLatestFrom 以源流为主，源流变化时才会有输出
+
+\_
+
+- withLatestFrom 以源流为主，源流变化时才会有输出
+
 ```typescript
 const merged$ = length$.withLatestFrom(width$);
 ```
+
 ## 5-5 实战复杂表单控件(上)
 
-* ng-container
+- ng-container
 
 ```typescript
 <div>1</div>
@@ -2679,31 +2754,31 @@ const merged$ = length$.withLatestFrom(width$);
   <div>2</div>
 </ng-container>
 ```
-    
-通常多一层div，但是用 ng-container 是没有这一层的。 1,2,是同级的
+
+通常多一层 div，但是用 ng-container 是没有这一层的。 1,2,是同级的
 
 自定义表单控件要继承 ControlValueAccessor ，包含三个实现的方法。
 
 `writeValue registerOnChange registerOnTouched`
 
-* writeValue -- 向控件中写值，通常用来改变模板当中的值
+- writeValue -- 向控件中写值，通常用来改变模板当中的值
 
-* registerOnChange(fn: any) 向外广播我值发生变化的机制。
+- registerOnChange(fn: any) 向外广播我值发生变化的机制。
 
 ```typescript
   registerOnChange(fn: any): void {this.propagateChange = fn; }
-  
+
   ngOnInit() {this.propagateChange('ss'); }
   //外界就知道我的值改变了, 并且知道变化的值是什么
 
   写上 (change)="onChange($event)" , 这个onchange就会到 propagateChange 当中去，处理函数会接收到event。
 ```
 
-* registerOnTouched 也是提供机制向外传播我的控件被touch。
+- registerOnTouched 也是提供机制向外传播我的控件被 touch。
 
 ```text
                   toAge
-                  / 
+                  /
 birthday: -------d,from-------d-------d--------------------
 ageNum: ----an--------an-----an------an------------------
 ageUnit: ---------au-------au------au--------------------
@@ -2718,7 +2793,7 @@ age                a   a    a
 
 判断流是从 birthday 还是 age 来的。
 
-用filter过滤掉表单不合法的值。
+用 filter 过滤掉表单不合法的值。
 
 combineLatest(ageNum$, ageUnit$ 需要两个都有值，我们一个初始值即表单的值
 
@@ -2732,14 +2807,19 @@ combineLatest(ageNum$, ageUnit$ 需要两个都有值，我们一个初始值即
 组合验证需要知道组合验证的名子，
 
 ```typescript
-      age: this.fb.group({
-        ageNum: [],
-        ageUnit: [],
-      }, {validator: this.validateAge('ageNum', 'ageUnit')})
+age: this.fb.group(
+  {
+    ageNum: [],
+    ageUnit: [],
+  },
+  { validator: this.validateAge("ageNum", "ageUnit") }
+);
 ```
+
 需要返回一个验证器，它是一个工厂。
 
           ageNum.patchValue(age.age, {emitEvent: false});
+
 更新了控件后，是否通知其他人。
 
 ```typescript
@@ -2819,7 +2899,7 @@ export interface Age {
 })
 export class AgeInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
-  @Input() daysTop = 90; @Input() daysBottom = 0; 
+  @Input() daysTop = 90; @Input() daysBottom = 0;
   @Input() monthTop = 24; @Input() monthBottom = 1;
   @Input() yearTop = 150; @Input() yearsBottom = 1;
   @Input() format = 'YYYY-MM-DD';
@@ -2959,35 +3039,40 @@ export class AgeInputComponent implements ControlValueAccessor, OnInit, OnDestro
 }
 ```
 
-# 第6章 Angular 中的响应式编程
+# 第 6 章 Angular 中的响应式编程
+
 ## 6-1 高阶操作符
+
 高阶操作符： 拍扁的作用--从多层变一层
 
-flatMap 和 mergeMap 是相等的。在rxjs中flatMap是mergeMap的别名。
+flatMap 和 mergeMap 是相等的。在 rxjs 中 flatMap 是 mergeMap 的别名。
 
 mergeMap 会保留所有订阅的子流。
 
 switchMap 有新流进来时会抛弃之前的流。
 
 例删除文章的流，外层删除文章 ，内层要删除文章的所有的评论。删除第一个文章时，来了删除第二个文章的请求，要不要评论这个动作要不要继续进行。要继续=mergeMap。
+
 ```typescript
-const length$ = Rx.Observable.fromEvent(length, 'keyup').pluck('target', 'value')
-  .switchMap(_ => Rx.Observable.interval(1000));
+const length$ = Rx.Observable.fromEvent(length, "keyup")
+  .pluck("target", "value")
+  .switchMap((_) => Rx.Observable.interval(1000));
 ```
 
 在 index.ts 中导入当前所有需要导入的， 在引用时 只引用到目录即可 '/domain'
 
 update 用 patch 方法，只更新需要修改的属性。
 
-json-server 只支持2级级联删除。我们这里使用 删除列表和项目的task。
+json-server 只支持 2 级级联删除。我们这里使用 删除列表和项目的 task。
 
-我们只需要最后全部删除的结果，不需要中间返回的http status 200。 使用 count, 对流里的数量进行一个统计。
+我们只需要最后全部删除的结果，不需要中间返回的 http status 200。 使用 count, 对流里的数量进行一个统计。
 
-删除所有 task后
+删除所有 task 后
 
 mergeMap - taskList 对应的子流全部都要保持住。希望在删除时删的干干净净。
 
 switchMap 不关心外层。
+
 ```typescript
   del(project: Project) {
     const delTasks$ = Observable.from(project.taskLists)
@@ -3002,7 +3087,7 @@ switchMap 不关心外层。
 
 `json-server ./mock/data.json --watch`
 
-`mock/rest.http` 中添加 `GET http://localhost:3000/projects/?members_like=2` 来测试。 
+`mock/rest.http` 中添加 `GET http://localhost:3000/projects/?members_like=2` 来测试。
 
 ```typescript
 # data.json
@@ -3128,16 +3213,19 @@ export  class ProjectService {
   ngOnInit() {this.service$.get('1').subscribe(projects => this.projects = projects); }
 
 ```
+
 ## 6-2 实战服务逻辑(上)
+
 项目列表(name, order, projectid)-任务列表
 
-任务列表-增删改查 和project 类似，但多了一个移动。但只改变了内存，没有改变服务器的数据。
+任务列表-增删改查 和 project 类似，但多了一个移动。但只改变了内存，没有改变服务器的数据。
 
-__tasks__ 和 taskList 有类似的增删改查，多一个 completed, 单一责任制， 单独写完成功能，移动功能。
+**tasks** 和 taskList 有类似的增删改查，多一个 completed, 单一责任制， 单独写完成功能，移动功能。
 
-src, target 的  order 的更新。两个事件流，一个drag的事件，一个是drop的order。 先将这两个流处理完后，将更新后的 tasklist 返回。最后要返回一个tasklist数组，做一个合并再做reduce。
+src, target 的 order 的更新。两个事件流，一个 drag 的事件，一个是 drop 的 order。 先将这两个流处理完后，将更新后的 tasklist 返回。最后要返回一个 tasklist 数组，做一个合并再做 reduce。
 
-用merge和concat都行。没有顺序之分。这里为了演示使用 concat 顺序执行。再用reduce返回数组。
+用 merge 和 concat 都行。没有顺序之分。这里为了演示使用 concat 顺序执行。再用 reduce 返回数组。
+
 ```typescript
 # task-list.service.ts
 export  class TaskListService {
@@ -3154,13 +3242,13 @@ export  class TaskListService {
 
   del(taskList: TaskList): Observable<TaskList> {
     const uri = `${this.config.uri}/${this.domain}/${taskList.id}`;
-    return this.http.delete(uri) .mapTo(taskList); 
+    return this.http.delete(uri) .mapTo(taskList);
   }
 
   // GET
   get(projectId: string): Observable<TaskList[]> {
     const uri = `${this.config.uri}/${this.domain}`;
-    return this.http .get<TaskList[]>(uri, {params: {'projectId': projectId}}); 
+    return this.http .get<TaskList[]>(uri, {params: {'projectId': projectId}});
   }
 
   swapOrder(src: TaskList, target: TaskList): Observable<TaskList[]> {
@@ -3176,7 +3264,6 @@ export  class TaskListService {
 
 ```
 
-
 ## 6-3 实战服务逻辑(中)
 
 ```typescript
@@ -3188,7 +3275,7 @@ dialogRef.afterClosed().subscribe(project => {})
 dialogRef.afterClosed().filter(n => n).subscribe(project => {})
 ```
 
-直接关闭时没有project的，filter一下
+直接关闭时没有 project 的，filter 一下
 
       this.service$.add(project); 也返回的是个流，不2次订阅，合并一下流。
 
@@ -3198,13 +3285,13 @@ dialogRef.afterClosed().filter(n => n).subscribe(project => {})
 
 返回的是 xx_tn 缩略图，我们要处理一让返回大图。并在界面上进行更改。
 
-* 节省订阅
+- 节省订阅
 
 做一人个 take ， 不需要 desctroy 中取消订阅，也不用一直监视。节省订阅。
 
-__filter__  (n => n) 它或 boolean 为真，非空
+**filter** (n => n) 它或 boolean 为真，非空
 
-__map__  `.map(val => ({...val, coverImg: this.buildImgSrc(val.coverImage)})) `
+**map** `.map(val => ({...val, coverImg: this.buildImgSrc(val.coverImage)}))`
 
 展开前面对象，后面的属性，没有就添加有就更新。
 
@@ -3312,7 +3399,7 @@ export  class TaskService {
   add(task: Task): Observable<Task> {
     task.id = null;
     const uri = `${this.config.uri}/${this.domain}`;
-    return this.http .post<Task>(uri, JSON.stringify(task), {headers: this.headers}); 
+    return this.http .post<Task>(uri, JSON.stringify(task), {headers: this.headers});
   }
 
   // PUT
@@ -3343,7 +3430,7 @@ export  class TaskService {
   }
 
   getByLists(lists: TaskList[]): Observable<Task[]> {
-    return Observable.from(lists) .mergeMap(list => this.get(list.id) ) 
+    return Observable.from(lists) .mergeMap(list => this.get(list.id) )
     .reduce((tasks: Task[], t: Task[] ) => [...tasks, ...t], []);
   }
 
@@ -3370,11 +3457,11 @@ export  class TaskService {
 
 ## 6-4 实战服务逻辑(下)
 
-* 查询用户，搜索建议
+- 查询用户，搜索建议
 
-* 添加组员，添加任务执行者
+- 添加组员，添加任务执行者
 
-* 处理 user 和 project 的关系。
+- 处理 user 和 project 的关系。
 
 ### UserService
 
@@ -3383,31 +3470,38 @@ user 这边有 projectsid， project 有 members id。
 增加关联，删除关联，以及批量的处理。
 
 ```typescript
-
-export  class UserService {
-
-  private readonly domain = 'users';
+export class UserService {
+  private readonly domain = "users";
   private headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    "Content-Type": "application/json",
   });
-  constructor(private http: HttpClient, @Inject('BASE_CONFIG') private config) {}
+  constructor(
+    private http: HttpClient,
+    @Inject("BASE_CONFIG") private config
+  ) {}
 
   searchUsers(filter: string): Observable<User[]> {
     const uri = `${this.config.uri}/${this.domain}`;
-    return this.http.get<User[]>(uri, {params: {'email_like': filter}});
+    return this.http.get<User[]>(uri, { params: { email_like: filter } });
   }
   gethUsersByProject(projectId: string): Observable<User[]> {
     const uri = `${this.config.uri}/${this.domain}`;
-    return this.http.get<User[]>(uri, {params: {'projectId_like': projectId}});
+    return this.http.get<User[]>(uri, {
+      params: { projectId_like: projectId },
+    });
   }
 
   addProjectRef(user: User, projectId: string): Observable<User> {
     const uri = `${this.config.uri}/${this.domain}/${user.id}`;
     const projectIds = user.projectIds ? user.projectIds : [];
     if (projectIds.indexOf(projectId) > -1) {
-        return Observable.of(user);
+      return Observable.of(user);
     }
-    return this.http.patch<User>(uri, JSON.stringify({projectIds: [...projectIds, projectId]}), {headers: this.headers});
+    return this.http.patch<User>(
+      uri,
+      JSON.stringify({ projectIds: [...projectIds, projectId] }),
+      { headers: this.headers }
+    );
   }
 
   removeProjectRef(user: User, projectId: string): Observable<User> {
@@ -3415,31 +3509,39 @@ export  class UserService {
     const projectIds = user.projectIds ? user.projectIds : [];
     const index = projectIds.indexOf(projectId);
     if (index === -1) {
-        return Observable.of(user);
+      return Observable.of(user);
     }
-    const toUpdate = [...projectIds.slice(0, index), ...projectIds.slice(index + 1)];
-    return this.http.patch<User>(uri, JSON.stringify({projectIds: toUpdate}), {headers: this.headers});
+    const toUpdate = [
+      ...projectIds.slice(0, index),
+      ...projectIds.slice(index + 1),
+    ];
+    return this.http.patch<User>(
+      uri,
+      JSON.stringify({ projectIds: toUpdate }),
+      { headers: this.headers }
+    );
   }
 
   batchUpdateProjectRef(project: Project): Observable<User[]> {
     const projectId = project.id;
     const membersIds = project.members ? project.members : [];
     return Observable.from(membersIds)
-      .switchMap(id => {
+      .switchMap((id) => {
         const uri = `${this.config.uri}/${this.domain}/${id}`;
         return this.http.get<User>(uri);
       })
-      .filter(user => user.projectIds.indexOf(projectId) === -1)
-      .switchMap(u => this.addProjectRef(u, projectId))
+      .filter((user) => user.projectIds.indexOf(projectId) === -1)
+      .switchMap((u) => this.addProjectRef(u, projectId))
       .reduce((arr, curr) => [...arr, curr], []);
   }
 }
 ```
+
 ### AuthService
 
 新建 auth.model ， 基于 token based 认证。session 维护目前比较麻烦。
 
-认证service 会有验证和登录。这里没有后台。没有删除用户
+认证 service 会有验证和登录。这里没有后台。没有删除用户
 
 ```typescript
 # auth.service.ts
@@ -3478,9 +3580,9 @@ export  class AuthService {
 
 ```
 
-### AuthGuard 
+### AuthGuard
 
-路由守卫可以用 纯 boolean 或 Observable 或Promise形式返回，这里以 Observable形式的返回
+路由守卫可以用 纯 boolean 或 Observable 或 Promise 形式返回，这里以 Observable 形式的返回
 
 ```typescript
 # auth-guard.service.ts
@@ -3695,7 +3797,7 @@ Observable 的冷和热
 
 Subject 即是 Observer 又是 Observable
 
-ReplaySubject 只留最新的N个值
+ReplaySubject 只留最新的 N 个值
 
 BehaviorSubject 保留最新的一个值。
 
@@ -3712,54 +3814,57 @@ Async Pipe 是什么？ 有什么用？ (可直接使用 Observable，而且不�
 ```typescript
 const count$ = Rx.Observable.interval(1000);
 
-const sub1 = count$.subscribe(val => console.log(val));
+const sub1 = count$.subscribe((val) => console.log(val));
 
-setTimeout(function(){
-  const sub2 = count$.subscribe(val => console.log(val))
-}, 2000)
+setTimeout(function () {
+  const sub2 = count$.subscribe((val) => console.log(val));
+}, 2000);
 ```
 
 热-直播
 `const count$ = Rx.Observable.interval(1000).share();`
 
 改为 subscribe
+
 ```typescript
 const counter$ = Rx.Observable.interval(1000).take(5);
 
 const subject = new Rx.Subject();
 
 const observer1 = {
-  next: (val) => console.log('1: ' + val),
-  error: (err) => console.error('ERROR>> 1:' + err),
-  complete: () => console.log('1 is complete')
-}
+  next: (val) => console.log("1: " + val),
+  error: (err) => console.error("ERROR>> 1:" + err),
+  complete: () => console.log("1 is complete"),
+};
 
 const observer2 = {
-  next: (val) => console.log('2: ' + val),
-  error: (err) => console.error('ERROR>> 2:' + err),
-  complete: () => console.log('2 is complete')
-}
+  next: (val) => console.log("2: " + val),
+  error: (err) => console.error("ERROR>> 2:" + err),
+  complete: () => console.log("2 is complete"),
+};
 
 // counter$.subscribe(val => console.log(val))
 // 上下是相等的
 counter$.subscribe(observer1);
 
-setTimeout(function() {
+setTimeout(function () {
   counter$.subscribe(observer2);
 }, 2000);
 ```
 
-需要在2处执行，但有很多情况，是我们定义好在应该的时间触发，所有的序列都这么执行。这种情况要用 subject
+需要在 2 处执行，但有很多情况，是我们定义好在应该的时间触发，所有的序列都这么执行。这种情况要用 subject
+
 ```typescript
 subject.subscribe(observer1);
 
-setTimeout(function() {
+setTimeout(function () {
   subject.subscribe(observer2);
 }, 2000);
 
 counter$.subscribe(subject);
 ```
-这样就用一句执行了2个observerable
+
+这样就用一句执行了 2 个 observerable
 
 ```typescript
 subject.next(10);
@@ -3767,22 +3872,23 @@ subject.next(11);
 
 subject.subscribe(observer1);
 counter$.subscribe(subject);
-
 ```
-10 11并没有反应。因为还没开始订阅
+
+10 11 并没有反应。因为还没开始订阅
 
 ```typescript
 subject.subscribe(observer1);
 subject.next(10);
 subject.next(11);
 
-setTimeout(function() {
+setTimeout(function () {
   subject.subscribe(observer2);
 }, 2000);
 
 counter$.subscribe(subject);
 ```
-第二个流没有反应，10 11已经过去了，所以它是热的流。
+
+第二个流没有反应，10 11 已经过去了，所以它是热的流。
 
 #### ReplaySubject 进行重复播放
 
@@ -3795,7 +3901,9 @@ subject.next(11);
 ...
 counter$.subscribe(subject);
 ```
+
 第一个流 播出了 10 11， 第二个流播出了 0 11
+
 ```typescript
 "1: 0"
 "1: 10"
@@ -3820,19 +3928,19 @@ counter$.subscribe(subject);
 "2: 1"
 ```
 
-__之前 drag and drop service__， 用到 BehaviorSubject
+**之前 drag and drop service**， 用到 BehaviorSubject
 
 开始拖的时候 `setDragData(data: DragData) {this._dragData.next(data); }`
 
 在流新增一个元素，放的时候，`getDragData(): Observable<DragData> {return this._dragData.asObservable(); }` 会得到这个 Observable 取到最新的值。
-  
-clear时怎么办？把null放进来。其他的地方误接收时会收到 null 没有数据。
+
+clear 时怎么办？把 null 放进来。其他的地方误接收时会收到 null 没有数据。
 
 ### Async Pipe
 
-正常要 subscribe, 并在 {} 传递 objects， 然后在 ondestroy中取消订阅。
+正常要 subscribe, 并在 {} 传递 objects， 然后在 ondestroy 中取消订阅。
 
-现在直接定义流， name$ ，在 html中 item | async 使用。
+现在直接定义流， name\$ ，在 html 中 item | async 使用。
 
 ## 6-7 实战身份验证控件和地址选择控件(上)
 
@@ -3840,7 +3948,7 @@ clear时怎么办？把null放进来。其他的地方误接收时会收到 null
 
 联动都放在表单中处理，会变得非常复杂。表单只关心你选的值，不关心校验。
 
-分成3个组件比较简单。
+分成 3 个组件比较简单。
 
 ```typescript
 ng g c shared/identity-input -spec false
@@ -3848,6 +3956,7 @@ ng g c shared/area-list -spec false
 ```
 
 ## 6-8 实战身份验证控件和地址选择控件(中)
+
 ```typescript
 #area-list.component.css
 .street {flex: 1 1 100%; }
@@ -4176,28 +4285,29 @@ export const getAddrByCode = (code: string) => {
 
 
 ```
-# 第7章 使用 Redux 管理应用状态
+
+# 第 7 章 使用 Redux 管理应用状态
+
 ## 7-1 Redux 的概念和实战(一)
 
-__Redux是什么__
+**Redux 是什么**
 
 Redux 是一个状态的集中管理机制。全局的、唯一的、不可改变的内存状态【数据库】
 
 不可改变--不会改变自己原有状态，每次会返回一个全新的状态。
 
-状态：影响到UI变化的数据。
+状态：影响到 UI 变化的数据。
 
 Store, Action, Reducer,
 
-多人协作时，另一个人改变了某状态而没考虑你的业务逻辑导致了bug，防止这种情况。使用Redux管理。
+多人协作时，另一个人改变了某状态而没考虑你的业务逻辑导致了 bug，防止这种情况。使用 Redux 管理。
 
-__第一个 reducer__。
+**第一个 reducer**。
 
-* reducer 是一个纯函数，可以接收到任何 Action 。
-* reducer 不改变状态，只返回新的状态。
+- reducer 是一个纯函数，可以接收到任何 Action 。
+- reducer 不改变状态，只返回新的状态。
 
 npm i --save @ngrx/core@1.2.0 @ngrx/store@2.2.3 @ngrx/router-store@1.2.6 @ngrx/effects@2.0.4 @ngrx/store-devtools@3.2.4
-
 
 相等的，返回的是新的对象，不是修改的原来的对象。
 
@@ -4205,6 +4315,7 @@ npm i --save @ngrx/core@1.2.0 @ngrx/store@2.2.3 @ngrx/router-store@1.2.6 @ngrx/e
       return Object.assign({}, state, {quote: action.payload})
 
 redux 相关的导入方法
+
 ```typescript
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreModule} from '@ngrx/store';
@@ -4220,7 +4331,7 @@ import {RouterStoreModule} from '@ngrx/router-store';
 
 ```
 
-ngrx提供了方法合并 reducer
+ngrx 提供了方法合并 reducer
 
 生产和开发的 区别， 不可改变的。
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -4230,15 +4341,15 @@ npm install --save ngrx-store-freeze
 
 使用它时，如果写入原有状态时会报错，在开发环境时希望有这种特性。
 
-compose把前面函数当成后面函数的参数传进去
+compose 把前面函数当成后面函数的参数传进去
 
 `const developmentReducers: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);`
 
-先定义全局State，再定义分支State， 全局初始值，每项对应的分支初始值。
+先定义全局 State，再定义分支 State， 全局初始值，每项对应的分支初始值。
 
-reducers 全部包含分支。再combine起来成为全局的reducer。做生产环境和开发环境。再放到storeModule中。
+reducers 全部包含分支。再 combine 起来成为全局的 reducer。做生产环境和开发环境。再放到 storeModule 中。
 
-__Code__
+**Code**
 
 ```typescript
 # quote.action.ts
@@ -4334,29 +4445,36 @@ export function reducer(state = initialState, action: {type: string, payload: an
   }
 ```
 
-把内存数据处理的逻辑从组件中剥离了出来。目前 q 是any，要改造下指定为特定类型。
+把内存数据处理的逻辑从组件中剥离了出来。目前 q 是 any，要改造下指定为特定类型。
 
 npm i --save reselect
 
-createSelector(getQuoteState, fromQuote.getQuote);  createSelector可以将多个函数组合。
+createSelector(getQuoteState, fromQuote.getQuote); createSelector 可以将多个函数组合。
 
-__使用 reselect 进行状态函数的高阶运算__
+**使用 reselect 进行状态函数的高阶运算**
 
 reselect: 带【记忆】功能的函数运算，无论多少个参数，最后一个才是用于函数计算，其他的都是它的输入
 
 ```typescript
-export const getTasksWithOwner = createSelector(getTasks, getUserEntities, 
-    (tasks, entities) => {
-        return tasks.map(task => {
-            const owner = entities[task.ownerId];
-            const participants = task.participantIds.map(id => entities[id]);
-            return Object.assign({}, task, {owner: owner}, {participants: [...participants]});
-        });
+export const getTasksWithOwner = createSelector(
+  getTasks,
+  getUserEntities,
+  (tasks, entities) => {
+    return tasks.map((task) => {
+      const owner = entities[task.ownerId];
+      const participants = task.participantIds.map((id) => entities[id]);
+      return Object.assign(
+        {},
+        task,
+        { owner: owner },
+        { participants: [...participants] }
+      );
     });
+  }
+);
 ```
 
 Code:
-
 
 ```typescript
 # quote.action.ts
@@ -4493,26 +4611,29 @@ export function type<T>(label: T | ''): T {
 }
 
 ```
+
 ## 7-3 什么是 Effects
-外接通过dispatch(QUOTE)->进入effect 触发services.subscribe()->触发success或则fail
+
+外接通过 dispatch(QUOTE)->进入 effect 触发 services.subscribe()->触发 success 或则 fail
+
 ```typescript
 npm install @ngrx/effects --save
 npm install -g concurrently
 
 ```
 
-__什么是 Effiect?__
+**什么是 Effiect?**
 
 action 想像为一个流的话，改变的是数据流。不改变数据， 改变外部状态的， 比如
 
-* DOM side effects
-* HTTP side effects
-* Other side effects
+- DOM side effects
+- HTTP side effects
+- Other side effects
 
-和UI相关的数据处理 为reducer ，UI相关状态之外的改变叫 effects.
+和 UI 相关的数据处理 为 reducer ，UI 相关状态之外的改变叫 effects.
 
 ```typescript
- 
+
 # package.json
     "server": "json-server --watch mock/data.json --port 3000",
     "start": "concurrently \"ng server --port=4200 \" \"npm run server\"",
@@ -4555,15 +4676,15 @@ export class QuoteEffects {
   }
 ```
 
-现在已经不关心真正的逻辑了，只要在关键的时候发出action即可。
+现在已经不关心真正的逻辑了，只要在关键的时候发出 action 即可。
 
 在处理完一个逻辑后，发送到另一个逻辑，完成逻辑的拼接。
 
-用了reducer和effects 进一步把程序的逻辑剥离出来了。
+用了 reducer 和 effects 进一步把程序的逻辑剥离出来了。
 
 ## 7-4 实战认证信息流
 
-登录Action: 登录，成功，失败
+登录 Action: 登录，成功，失败
 
 Code:
 
@@ -4741,8 +4862,8 @@ const reducers = {quote: fromQuote.reducer, auth: fromAuth.reducer, router: from
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, 
-      logOnly: environment.production, 
+      maxAge: 25,
+      logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
     AppEffectsModule,
@@ -4773,6 +4894,7 @@ export class AuthGuardService implements CanActivate {
 ```
 
 ## 7-5 实战项目信息流(上)
+
 ```typescript
 # project.action.ts
 export const ActionTypes = {
@@ -4942,8 +5064,10 @@ const loadProjects = (state, action) => {
   };
 }
 ```
+
 ## 7-7 实战项目信息流(下)
-ngrx基于rx 的，所有 rx 操作符都可以用。
+
+ngrx 基于 rx 的，所有 rx 操作符都可以用。
 
 ```typescript
 # src/app/effects/index.ts
@@ -5051,7 +5175,7 @@ export class ProjectEffects {
       return {...state, selectedId: select_actions.payload.id};
     }
 
-# project.service.ts    
+# project.service.ts
   invite(projectId: string, users: User[]): Observable<Project> {
     const uri = `${this.config.uri}/${this.domain}/${projectId}`;
     return this.http
@@ -5068,17 +5192,17 @@ export class ProjectEffects {
 
 ## 7-8 实战任务列表信息流
 
-任务列表触发： 点击select时触发， 加载所有的任务列表。
+任务列表触发： 点击 select 时触发， 加载所有的任务列表。
 
-加载出来的集合是查询，有新增，有修改，有删除。有drag&drop。
+加载出来的集合是查询，有新增，有修改，有删除。有 drag&drop。
 
-应用是数据库， reducer是表，构建表的结构。建立 task-list.reducer.ts
+应用是数据库， reducer 是表，构建表的结构。建立 task-list.reducer.ts
 
 后面的建立起来比较方便，复制粘贴，替换即可。
 
-删除一个项目时，应及联删除一个列表，在选择一个项目时，selectedIds也应该被改变。
+删除一个项目时，应及联删除一个列表，在选择一个项目时，selectedIds 也应该被改变。
 
-监听项目的 action. reducer 会接收所有的 action. 
+监听项目的 action. reducer 会接收所有的 action.
 
 prjActions.ActionTypes.SELECT_PROJECT 这时 payload 携带的是 Project
 
@@ -5394,7 +5518,7 @@ export const getSelected = createSelector(getSelectedIds, getEntities, (selected
     <button mat-button type="button" (click)="onEditClick($event)">
     <button mat-button type="button" (click)="onInviteClick($event)">
     <button mat-button type="button" (click)="onDelClick($event)">
-# project-item.component.ts  
+# project-item.component.ts
   @Output() onSelected = new EventEmitter();
   onInviteClick(ev: Event) {
     ev.stopPropagation();
@@ -5433,7 +5557,7 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [logger , storeFreeze] : [];
 export const getTaskListState = (state: State) => state.taskLists;
 export const getTaskLists = createSelector(getTaskListState, fromTaskList.getSelected);
-    
+
 @NgModule({
   imports: [
     StoreModule.forRoot(reducers, { metaReducers }),
@@ -5503,9 +5627,10 @@ const routes: Routes = [{path: 'tasklists/:id', component: TaskHomeComponent}, ]
 ```
 
 ## 7-9 实战任务 Reducer
+
 task, 增删改查，完成，移动，批量移动 ---- action..
 
-一个action发出后，可能会影响状态，也有可能是先进行effects 回来再影响它的状态。
+一个 action 发出后，可能会影响状态，也有可能是先进行 effects 回来再影响它的状态。
 
 ```typescript
 # task.action.ts
@@ -5961,9 +6086,11 @@ export const getUsers = createSelector(getIds, getEntities, (ids, entities) => {
 });
 
 ```
+
 ## 7-10 实战任务 Effects
 
 Code:
+
 ```typescript
 # effects/index.ts
   imports: [EffectsModule.forRoot([...
@@ -6174,11 +6301,12 @@ export class UserEffects {
 # services.module.ts
 import         UserService,
 ```
+
 ## 7-11 实战任务使用 Reducer 和 Effects
+
 invite 改造。给初始值。邀请时不要重复添加
 
 默认当前是执行者
-
 
 ```typescript
 # project-list.component.ts
@@ -6309,19 +6437,22 @@ form: FormGroup;
   }
 
 ```
-# 第8章 Angular 的测试
+
+# 第 8 章 Angular 的测试
+
 ## 8-1 Angular 测试框架介绍
-自动化测试的好处：不会因为修改某个bug进行了重构，导致某个功能就不可用了。不会有回退的现象。
 
-__测试如此简单 __
+自动化测试的好处：不会因为修改某个 bug 进行了重构，导致某个功能就不可用了。不会有回退的现象。
 
-* 基于Karma和Jasmine的单元测试框架
+**测试如此简单 **
 
-* 基于Protractor的端到端(e2e)测试框架
+- 基于 Karma 和 Jasmine 的单元测试框架
 
-* Angular-CLI中提供的测试命令和配置
+- 基于 Protractor 的端到端(e2e)测试框架
 
-单元测试---一个函数 或一个类是好用的。输入输出是按期望做的就OK了。
+- Angular-CLI 中提供的测试命令和配置
+
+单元测试---一个函数 或一个类是好用的。输入输出是按期望做的就 OK 了。
 
 集成测试是需要程序跑起来的才能测试。。
 
@@ -6331,16 +6462,15 @@ describe('测试登录组件：LoginComponent'，()=>
 });
 ```
 
-__测试的基本步骤__
+**测试的基本步骤**
 
-* 命名你的测试包·
+- 命名你的测试包·
 
-* 准备测试环境·
+- 准备测试环境·
 
-有的测试环境需要前置条件。比如测试UI时，先要将module导入。beforeEach在每个测试里都要把环境搭一下。
+有的测试环境需要前置条件。比如测试 UI 时，先要将 module 导入。beforeEach 在每个测试里都要把环境搭一下。
 
-* 编写测试用例
-
+- 编写测试用例
 
 ```typescript
 describe('测试登录组件：LoginComponent'， () => {
@@ -6368,38 +6498,39 @@ it('组件模板的元素应该被正确创建'，() => {
 
 expted 期望 x 为 y。
 
-__测试时遇到这样那样的问题__
+**测试时遇到这样那样的问题**
 
-* Got jasmineRequire is not defined --- 放弃cnpm用原始 npm
+- Got jasmineRequire is not defined --- 放弃 cnpm 用原始 npm
 
-* Could not find Angular Material core theme. -- 把karmar的css文件放置进去。
+- Could not find Angular Material core theme. -- 把 karmar 的 css 文件放置进去。
 
-* Observable测试的正确姿势
+- Observable 测试的正确姿势
 
-__实战__
+**实战**
 
 ng g class reducers/auth.reducer --spec true
 
 使用 ng test 进行测试
 
-如果需要 rxjs包在 test.ts中引入 rxjs/Rx 只能在测试中这样做 Rx 包很大。
+如果需要 rxjs 包在 test.ts 中引入 rxjs/Rx 只能在测试中这样做 Rx 包很大。
 
     import 'rxjs/Rx';
 
 改造 AppCompoennt, 让它通过
 
-TestBed 用测试环境创建组件，得到一个app的实例，应该是一个对象。
+TestBed 用测试环境创建组件，得到一个 app 的实例，应该是一个对象。
+
 ```typescript
-  it('应该创建应用', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+it("应该创建应用", async(() => {
+  const fixture = TestBed.createComponent(AppComponent);
+  const app = fixture.debugElement.componentInstance;
+  expect(app).toBeTruthy();
+}));
 ```
 
-CLI 默认创建一个 app title的测试用例，我们不需要时删除它。
+CLI 默认创建一个 app title 的测试用例，我们不需要时删除它。
 
-.nativeElement; 渲染之后的DOM节点元素。
+.nativeElement; 渲染之后的 DOM 节点元素。
 
 karmar 行为驱动的描述语言，像自然语言，适合阅读。
 
@@ -6425,7 +6556,7 @@ describe('测试 AuthReducer', () => {
         type: actions.ActionTypes.LOGIN_SUCCESS,
         payload: {
           token: '',
-          user: {id: '1', email: 'dev@local.dev'} } 
+          user: {id: '1', email: 'dev@local.dev'} }
         } as any;
       const result = reducer(undefined, action);
       expect(result).toBeTruthy(fromAuth.initialState);
@@ -6449,19 +6580,19 @@ describe('测试 AuthReducer', () => {
 ```
 
 ## 8-2 单元测试 Service 和 Effects 以及集成测试
+
 测试 Observable , 测试 Http
 
-虚拟一个http环境。测试  effcts.
+虚拟一个 http 环境。测试 effcts.
 
     ng g s services/auth --spec true
 
 auth.service.ts 中注入了 http 和 BASE_CONFIG ， 我们在测试时也要提供。
 
-
-__e2e测试__
+**e2e 测试**
 
     ng e2e
-  
+
 ```typescript
 
 # app.e2e-spec.ts
@@ -6620,9 +6751,11 @@ describe('AuthService', () => {
 
 
 ```
-# 第9章 课程总结
+
+# 第 9 章 课程总结
 
 ## 9-1 第三方组件的集成和懒加载
+
 日历视图
 使用 angular-calendar 组件
 
@@ -6632,10 +6765,10 @@ ng g m my-calendar
 ng g c my-calendar/calendar-home -is -it
 ```
 
-
-改为 index.ts 缩短导入路径。组织成inline，简化。一般不要超过400行。
+改为 index.ts 缩短导入路径。组织成 inline，简化。一般不要超过 400 行。
 
 懒加载
+
 ## 9-2 项目总结
 
 原型构建-组件封装-逻辑抽象-业务剥离
@@ -6652,44 +6785,44 @@ ng g c my-calendar/calendar-home -is -it
 
 按角色，按模块，混合形式。
 
-__对象的各种层次__
+**对象的各种层次**
 
 DomainModel , CacheModel, StateModel, DataModel, ViewModel
 
 DomainModel 在显示时不够用，在视图中可能要使用 ViewModel 多显示一些东西。
 
-## Debug的N种方式
+## Debug 的 N 种方式
 
-* VScode, WebStorm, Chrome, Log
+- VScode, WebStorm, Chrome, Log
 
-1. VSCode , install Debugger for Chrome, 端口4200。下断点。 `npm start`
+1. VSCode , install Debugger for Chrome, 端口 4200。下断点。 `npm start`
 
 2. WebStorm, run-Edit Configuration - Add Javascript Debug , 设置好端口
 
 3. Chrome Dev Tools , Source - Openfile, app.component.ts 直接设置断点
 
 ## 基于 Token 的鉴权
-1. Http Post 发送名密码 ， 
-2. 服务器端 创建JWT Token 返回给用户， 用户访问的每个请求都会携带 Token
-3. 发送受保护的API请求 (在 Authorization Header 中携带 Token)
+
+1. Http Post 发送名密码 ，
+2. 服务器端 创建 JWT Token 返回给用户， 用户访问的每个请求都会携带 Token
+3. 发送受保护的 API 请求 (在 Authorization Header 中携带 Token)
 4. 返回请求数据
 
 ## 权限管理
+
 后端负主要责任，前端的权限管理能力并不是很强
 
-__类型__
+**类型**
 
-* ACL -  Access Control List , 例文件系统 ，针对每个对象赋予一个权限
-* RBAC - Role Based Access Control
+- ACL - Access Control List , 例文件系统 ，针对每个对象赋予一个权限
+- RBAC - Role Based Access Control
 
-ACL加入Group概念后就=RBAC ，通常意义上ACL针对颗粒度更小。
+ACL 加入 Group 概念后就=RBAC ，通常意义上 ACL 针对颗粒度更小。
 
 RBAC 更多基于业务。
 
-__层次__
+**层次**
 
-* API、文件
-* 业务
-* 可视 前端完成的大部分是可视层次。前端主要是显示或隐藏一些信息。
-
-
+- API、文件
+- 业务
+- 可视 前端完成的大部分是可视层次。前端主要是显示或隐藏一些信息。
